@@ -62,7 +62,7 @@ function addNewWord() {
             document.getElementById('passwordInput').value = '';
             alert(`"${data.word}" wurde zur Liste hinzugefügt!`);
         });
-    } else if (passwordInput !== "Pepe Jeans") {
+    } else if (passwordInput !== "pepejeans") {
         alert("Falsches Passwort!");
     } else {
         alert("Bitte alle Felder ausfüllen.");
