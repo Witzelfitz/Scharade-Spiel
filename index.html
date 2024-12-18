@@ -9,43 +9,19 @@
 <body>
     <div class="container">
         <h1 class="main-title">Scharade</h1>
-        <button id="generateButton">Klicke hier für ein zufälliges Wort</button>
-        <div id="wordDisplay">
-            <p id="randomWord"></p>
-            <p id="wordDetails"></p>
-        </div>
+        <div class="menu">
+            <h2>Spiel</h2>
+            <button class="menu-button" onclick="navigateTo('free-for-all')">Free for All</button>
+            <button class="menu-button" onclick="navigateTo('team-battle')">Team Battle</button>
+            <button class="menu-button disabled" title="Coming Soon">Time Attack (Coming soon)</button>
 
-        <div class="input-container">
-            <input type="text" id="newWordInput" placeholder="Neues Wort eingeben" required>
-            
-            <select id="categorySelect" required>
-                <option value="" disabled selected>Kategorie auswählen</option>
-                <option value="Buch">Buch</option>
-                <option value="Brettspiel">Brettspiel</option>
-                <option value="Essen">Essen</option>
-                <option value="Film">Film</option>
-                <option value="Geografie">Geografie</option>
-                <option value="Generisch">0_Generisch</option>
-                <option value="Instrument">Instrument</option>
-                <option value="Kultur">0_Kultur (divers)</option>
-                <option value="Kunst">Kunst</option>
-                <option value="Meme">Meme</option>
-                <option value="Person">Person</option>
-                <option value="Schule">Schule</option>
-                <option value="Spiel">Spiel</option>
-                <option value="Theater">Theater</option>
-                <option value="Tradition">Tradition</option>
-                <option value="Video Games">Video Games</option>
-            </select>
-
-            <input type="text" id="authorInput" placeholder="Verfasser" required>
-            <input type="password" id="passwordInput" placeholder="Passwort" required>
-            <button id="addWordButton">Wort hinzufügen</button>
+            <h2>Begriffe</h2>
+            <button class="menu-button" onclick="navigateTo('/html/formular-begriffe')">Begriff hinzufügen</button>
         </div>
     </div>
     <footer>
         <p>&copy; HappyLight. Made with lots of Swiss Chocolate</p>
     </footer>
-    <script src="/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
