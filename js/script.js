@@ -1,36 +1,37 @@
-// Wörter-Liste
 let words = [];
 let usedWords = [];
 
-// Seite navigieren
-function navigateTo(page) {
-    if (page === "free-for-all") {
-        window.location.href = "/free-for-all.html";
-    } else if (page === "team-battle") {
-        window.location.href = "/team-battle.html";
-    } else if (page === "add-word") {
-        window.location.href = "/add-word.html";
-    } else {
-        alert("Feature coming soon!");
-    }
+// Funktion, um das Modal anzuzeigen
+function openModal() {
+    const modal = document.getElementById('addWordModal');
+    modal.style.display = 'flex';
 }
 
-// Wörter laden
+// Funktion, um das Modal zu schliessen
+function closeModal() {
+    const modal = document.getElementById('addWordModal');
+    modal.style.display = 'none';
+}
+
+// Funktion, die alle Wörter vom Server lädt
 function loadWords() {
     fetch('/words')
         .then(response => response.json())
         .then(data => {
             words = data;
-            usedWords = []; // Reset used words
+            usedWords = []; // Zurücksetzen der verwendeten Wörter
         });
 }
 
-// Wörter generieren
+// Funktion, die ein zufälliges Wort auswählt und anzeigt
 function generateRandomWord() {
-    if (words.length === 0) return;
+    if (words.length === 0) {
+        alert("Keine Begriffe verfügbar. Bitte füge Begriffe hinzu.");
+        return;
+    }
 
     if (usedWords.length === words.length) {
-        alert("Alle Begriffe wurden angezeigt. Sie beginnen von vorne.");
+        alert("Alle Begriffe wurden angezeigt. Neustart der Liste.");
         usedWords = [];
     }
 
@@ -44,91 +45,66 @@ function generateRandomWord() {
 
     usedWords.push(randomWord.word);
     document.getElementById('randomWord').innerText = randomWord.word;
-    document.getElementById('wordDetails').innerText = `Kategorie: ${randomWord.category} | Verfasser: ${randomWord.author}`;
+    document.getElementById('wordDetails').innerText = 
+        `Kategorie: ${randomWord.category} | Sprache: ${randomWord.language} | Verfasser: ${randomWord.author}`;
 }
 
-// Neues Wort hinzufügen
+// Funktion zum Hinzufügen eines neuen Wortes zur Liste und zur Datenbank
 function addNewWord() {
     const newWordInput = document.getElementById('newWordInput').value.trim();
     const categorySelect = document.getElementById('categorySelect').value;
+    const languageSelect = document.getElementById('languageSelect').value;
     const authorInput = document.getElementById('authorInput').value.trim();
     const passwordInput = document.getElementById('passwordInput').value.trim();
 
-    if (newWordInput && categorySelect && authorInput && passwordInput === "Pepe Jeans") {
-        fetch('/add-word', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                word: newWordInput,
-                category: categorySelect,
-                author: authorInput
-            }),
-        })
+    if (!newWordInput || !categorySelect || !languageSelect || !authorInput || !passwordInput) {
+        alert("Bitte alle Felder ausfüllen.");
+        return;
+    }
+
+    if (passwordInput !== "pepejeans") {
+        alert("Falsches Passwort! Hinweis: Meine Lieblingshosen.");
+        return;
+    }
+
+    fetch('/add-word', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            word: newWordInput,
+            category: categorySelect,
+            language: languageSelect,
+            author: authorInput
+        }),
+    })
         .then(response => response.json())
         .then(data => {
             words.push(data);
-            usedWords = []; // Reset used words
+            usedWords = []; // Zurücksetzen der verwendeten Wörter
             document.getElementById('newWordInput').value = '';
             document.getElementById('categorySelect').value = '';
+            document.getElementById('languageSelect').value = '';
             document.getElementById('authorInput').value = '';
             document.getElementById('passwordInput').value = '';
+            closeModal();
             alert(`"${data.word}" wurde zur Liste hinzugefügt!`);
+        })
+        .catch(error => {
+            console.error("Fehler beim Hinzufügen:", error);
+            alert("Fehler beim Hinzufügen des Begriffs. Bitte versuche es später erneut.");
         });
-    } else if (passwordInput !== "Pepe Jeans") {
-        alert("Falsches Passwort!");
-    } else {
-        alert("Bitte alle Felder ausfüllen.");
-    }
 }
 
-// Event-Listener für Buttons
-document.addEventListener('DOMContentLoaded', () => {
-    const generateButton = document.getElementById('generateButton');
-    const addWordButton = document.getElementById('addWordButton');
+// Event Listener für den Button zum Generieren eines zufälligen Wortes
+document.getElementById('generateButton').addEventListener('click', generateRandomWord);
 
-    if (generateButton) {
-        generateButton.addEventListener('click', generateRandomWord);
-    }
+// Event Listener für den Button zum Öffnen des Modals
+document.getElementById('addWordButton').addEventListener('click', openModal);
 
-    if (addWordButton) {
-        addWordButton.addEventListener('click', addNewWord);
-    }
+// Event Listener für den Close-Button im Modal
+document.querySelector('.modal-close').addEventListener('click', closeModal);
 
-    // Wörter laden
-    loadWords();
-});
-
-// Modal öffnen und schliessen für das Formular
-function openModal() {
-    document.getElementById('addWordModal').style.display = 'flex';
-}
-
-function closeModal() {
-    document.getElementById('addWordModal').style.display = 'none';
-}
-
-// Event Listener für das Formular
-document.getElementById('addWordForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // Verhindert das Neuladen der Seite
-
-    const newWord = document.getElementById('newWordInput').value.trim();
-    const category = document.getElementById('categorySelect').value;
-    const language = document.getElementById('languageSelect').value;
-    const author = document.getElementById('authorInput').value;
-
-    if (newWord && category && language) {
-        // Simuliert das Speichern des Begriffs
-        console.log({
-            word: newWord,
-            category: category,
-            language: language,
-            author: author
-        });
-        alert(`"${newWord}" wurde erfolgreich hinzugefügt!`);
-        closeModal();
-    } else {
-        alert('Bitte alle Felder ausfüllen.');
-    }
-});
+// Wörter beim Laden der Seite abrufen
+loadWords();
