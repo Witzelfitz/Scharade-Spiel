@@ -21,91 +21,144 @@
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   background-color: var(--color-primary-bg);
-  background-image: url('/0_media/bilder/Vorhang\ Theater\ -\ Foto\ von\ DJ\ Paine\ auf\ Unsplash.jpg');
+  background-image: url('/0_media/bilder/Vorhang%20Theater%20-%20Foto%20von%20DJ%20Paine%20auf%20Unsplash.jpg');
   background-size: cover;
   background-position: center;
   font-family: var(--font-body);
   color: var(--color-primary-text);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-}
-
-.app-container {
-  width: 100%;
-  max-width: 420px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1.5rem;
 }
 
-/* Header */
+/* App Container */
+.app-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header & Footer */
+.app-header,
+.app-footer {
+  width: 100%;
+  background-color: #000;
+  color: var(--color-primary-text);
+  padding: 0.2rem 1rem;
+}
+
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
-  margin-bottom: 1rem;
 }
-/* Footer */
+
 .app-footer {
   text-align: center;
   font-size: 0.8rem;
   opacity: 0.8;
 }
 
-/* Haupttitel */
+.logo {
+  width: 50px;
+  height: auto;
+  fill: fff;
+}
+
+/* Main */
+.main-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.main-content-wrapper {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Sections */
+.top-section,
+.middle-section,
+.bottom-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Titel & Beschreibung */
 .title {
   font-family: var(--font-heading);
   font-size: 2rem;
   text-align: center;
-  margin-bottom: 2rem;
+  padding: 0.8rem 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #222;
 }
 
-/* Interaktive Fläche */
-.interaction-area {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
+.description {
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.9;
 }
 
+/* Slot */
 .slot {
   width: 100%;
+  margin-bottom: 0.5rem;
 }
 
 /* Buttons */
-.action-btn {
-  width: 100%;
-  padding: 1rem;
-  background-color: var(--color-dark-text);
-  color: var(--color-primary-text);
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: var(--font-body);
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-}
-
-.action-btn:active {
-  background-color: var(--color-primary-text);
-  color: var(--color-dark-text);
-}
-
-/* Eingabefeld */
+.btn-link,
+.btn-dropdown,
+.btn-confirm,
 .input-field {
   width: 100%;
   padding: 1rem;
   font-size: 1rem;
+  border-radius: 6px;
   font-family: var(--font-body);
   border: none;
-  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-link {
+  background-color: var(--color-blue);
+  color: white;
+}
+
+.btn-dropdown {
+  background-color: var(--color-dark-text);
+  color: white;
+}
+
+.btn-confirm {
+  background-color: var(--color-green);
+  color: white;
+}
+
+.input-field {
   background-color: #fff;
   color: var(--color-dark-text);
 }
 
+/* Button aktiv */
+.btn-link:active,
+.btn-dropdown:active,
+.btn-confirm:active {
+  filter: brightness(0.9);
+}
