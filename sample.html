@@ -40,12 +40,24 @@
         <div class="slot">
           <button class="btn-link" title="Neue Runde starten">Neue Runde</button>
         </div>
-        <div class="slot">
-          <button class="btn-dropdown" title="Begriffskategorie wählen">Kategorie wählen</button>
-        </div>
+
         <div class="slot">
           <button class="btn-confirm" title="Eingabe bestätigen">Bestätigen</button>
         </div>
+
+        <div class="dropdown-wrapper">
+          <button class="btn-dropdown" onclick="toggleDropdown()">Auswahl öffnen<span class="dropdown-icon">▾</span></button>
+            <div class="dropdown-menu hidden">
+              <label><input type="checkbox" value="Option 1"> Option 1</label>
+              <label><input type="checkbox" value="Option 2"> Option 2</label>
+              <label><input type="checkbox" value="Option 3"> Option 3</label>
+              <label><input type="checkbox" value="Option 4"> Option 4</label>
+              <label><input type="checkbox" value="Option 5"> Option 5</label>
+              <label><input type="checkbox" value="Option 6"> Option 6</label>
+              <label><input type="checkbox" value="Option 7"> Option 7</label>
+            </div>
+        </div>
+
         <div class="slot">
           <input type="text" class="input-field" placeholder="Begriff eingeben" aria-label="Begriff eingeben" />
         </div>
@@ -60,5 +72,21 @@
     </footer>
 
   </div>
+
+  <script>
+  function toggleDropdown() {
+    const menu = document.querySelector('.dropdown-menu');
+    menu.classList.toggle('hidden');
+  }
+
+  // Optional: Dropdown schliessen, wenn man ausserhalb klickt
+  document.addEventListener('click', function (e) {
+    const dropdown = document.querySelector('.dropdown-wrapper');
+    if (!dropdown.contains(e.target)) {
+      document.querySelector('.dropdown-menu').classList.add('hidden');
+    }
+  });
+</script>
+
 </body>
 </html>

@@ -36,6 +36,17 @@ body {
   flex-direction: column;
 }
 
+a {
+  color: var(--color-primary-text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-blue);
+  text-decoration: underline;
+}
+
 /* App Container */
 .app-container {
   flex: 1;
@@ -141,9 +152,75 @@ body {
   color: white;
 }
 
+/* Button Drop-Down Menü */
+.dropdown-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  z-index: 10;
+}
+
 .btn-dropdown {
-  background-color: var(--color-dark-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
   color: white;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.btn-dropdown:active {
+  filter: brightness(0.9);
+}
+
+.dropdown-icon {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  bottom: 100%;                  /* Statt top: 100% -> nach oben öffnen */
+  left: 0;
+  right: 0;
+  background-color: #000;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 6px 6px 0 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+
+  max-height: 200px;             /* Maximale Höhe */
+  overflow-y: auto;              /* Scrollbar bei Überlauf */
+}
+
+.dropdown-menu label {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+}
+
+.dropdown-menu label:hover {
+  background-color: #222;
+}
+
+.dropdown-menu input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Toggle visibility */
+.hidden {
+  display: none;
 }
 
 .btn-confirm {
