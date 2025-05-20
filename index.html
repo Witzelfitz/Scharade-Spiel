@@ -1,89 +1,42 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scharade Generator</title>
-    <link rel="stylesheet" href="/css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scharade</title>
+
+  <!-- Fonts + CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lexend:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1 class="main-title">Scharade</h1>
-        <div class="menu">
-            <div class="menu-section">
-                <h2>Spiel</h2>
-                <button id="freeForAllButton">Free for All</button>
-                <button id="teamBattleButton">Team Battle</button>
-                <button id="timeAttackButton" disabled>Time Attack (Coming soon)</button>
-            </div>
-            <div class="menu-section">
-                <h2>Begriffe</h2>
-                <button id="addWordButton">Begriff hinzufügen</button>
-            </div>
-        </div>
-    </div>
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <span>Hallo <span class="username">&lt;username&gt;</span></span>
+      <a href="/html/login.html" class="login">Login</a>
+      <a href="#" class="logout">Logout</a>
+    </header>
 
-    <!-- Modal für das Hinzufügen von Begriffen -->
-    <div id="addWordModal" class="modal hidden">
-        <div class="modal-content">
-            <span id="closeModal" class="close-button">&times;</span>
-            <h2>Begriff hinzufügen</h2>
-            <form id="addWordForm">
-                <div class="form-group">
-                    <label for="newWordInput">Begriff:</label>
-                    <input type="text" id="newWordInput" placeholder="Neues Wort eingeben" required>
-                </div>
-                <div class="form-group">
-                    <label for="categorySelect">Kategorie:</label>
-                    <select id="categorySelect" required>
-                        <option value="" disabled selected>Kategorie auswählen</option>
-                        <option value="Buch">Buch</option>
-                        <option value="Brettspiel">Brettspiel</option>
-                        <option value="Essen">Essen</option>
-                        <option value="Film">Film</option>
-                        <option value="Geografie">Geografie</option>
-                        <option value="Generisch">0_Generisch</option>
-                        <option value="Instrument">Instrument</option>
-                        <option value="Kultur">0_Kultur (divers)</option>
-                        <option value="Kunst">Kunst</option>
-                        <option value="Meme">Meme</option>
-                        <option value="Person">Person</option>
-                        <option value="Schule">Schule</option>
-                        <option value="Spiel">Spiel</option>
-                        <option value="Theater">Theater</option>
-                        <option value="Tradition">Tradition</option>
-                        <option value="Video Games">Video Games</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="languageSelect">Sprache:</label>
-                    <select id="languageSelect" required>
-                        <option value="" disabled selected>Sprache auswählen</option>
-                        <option value="0_kein">Kein</option>
-                        <option value="1_DE">Deutsch</option>
-                        <option value="2_EN">Englisch</option>
-                        <option value="3_FR">Französisch</option>
-                        <option value="4_IT">Italienisch</option>
-                        <option value="5_ES">Spanisch</option>
-                        <option value="6_JP">Japanisch</option>
-                        <option value="7_other">Andere</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="authorInput">Verfasser:</label>
-                    <input type="text" id="authorInput" placeholder="Verfasser" required>
-                </div>
-            <input type="password" id="passwordInput" placeholder="Passwort eingeben" required>
-            <small>Hinweis: Meine Lieblingshosen</small>
-                <button type="submit" class="submit-button">Begriff hinzufügen</button>
-            </form>
-        </div>
-    </div>
+    <!-- Hauptbereich -->
+    <main class="main-section">
+      <h1 class="title">Scharade</h1>
 
-    <footer>
-        <p>&copy; HappyLight. Made with lots of Swiss Chocolate</p>
+      <!-- Interaktive Slots -->
+      <div class="interaction-area">
+        <div class="slot"><button class="action-btn">Scharade spielen</button></div>
+        <div class="slot"><button class="action-btn">Begriffe eintragen der DB</button></div>
+        <!-- <div class="slot"><button class="action-btn">Runde starten</button></div> -->
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Made with lots of Swiss Chocolate</p>
+      <p>© 2025 by HappyLight</p>
     </footer>
-
-    <script src="/script.js"></script>
+    
+  </div>
 </body>
 </html>
