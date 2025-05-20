@@ -6,26 +6,52 @@
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <h1>Login</h1>
+    <header>
+      <div class="app-container">
+      <img src="../0_media/bilder/XXXXXXXXXX" alt="Logo" class="logo" />
+    </header>
 
-    <form id="loginForm">
+    <main class="main-section">
+      <div class="top-section">
+        <h1 class="title">Login</h1>
+        <p class="description">Willkommen zurück! Bitte melde dich an.</p>
+      </div>
+
+      <div class="middle-section">
+        <!-- Hier können Sie weitere Inhalte hinzufügen -->
+      </div>
+
+      <div class="bottom-section">
+        <!-- Logindaten eingeben -->
+
+         <form id="loginForm">
       <div>
         <label>Benutzername</label>
         <input type="text" id="username" required />
       </div>
+
       <div>
         <label>Email</label>
         <input type="email" id="email" required />
       </div>
+
       <div>
         <label>Password</label>
         <input type="password" id="password" required />
       </div>
-      <button type="submit">Login</button>
+
+      <button type="btn-confirm">Login</button>
     </form>
 
-    <p>Don’t have an account? <a href="../html/register.html">Register here</a>.</p>
+        <p>Noch keinen Account? <br><a href="../html/register.html">Registrieren</a></p>
+      </div>
+    </main>
 
+    <footer>
+      <p>Made with lots of Swiss Chocolate</p>
+      <p>© 2025 by HappyLight</p>
+    </footer>
+    
     <script src="../js/login.js"></script>
   </body>
 </html>
