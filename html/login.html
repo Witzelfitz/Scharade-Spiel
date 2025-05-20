@@ -1,58 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Login</title>
-    <link rel="stylesheet" href="../css/style.css" />
-  </head>
-  
-  <body>
-    <header>
-      <div class="app-container">
-      <img src="../0_media/bilder/XXXXXXXXXX" alt="Logo" class="logo" />
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scharade Login</title>
+  <link rel="icon" type="image/x-icon" href="/0_media/bilder/Logo Happy Scharade V1.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lexend:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div class="app-container">
+
+    <header class="app-header">
+      <!-- Logo -->
+      <img src="/0_media/bilder/Logo Happy Scharade V1.svg" alt="Logo von Happy Scharade" class="logo" />
+
+      <!-- Login -->
+      <nav class="user-nav">
+        <span class="welcome-text">Hallo <span class="username">&lt;username&gt;</span></span>
+        <a href="/html/login.html" class="login">Login</a>
+        <a href="/php/logout.php" class="logout">Logout</a>
+      </nav>
     </header>
 
     <main class="main-section">
-      <div class="top-section">
-        <h1 class="title">Login</h1>
-        <p class="description">Willkommen zurück! Bitte melde dich an.</p>
-      </div>
+      <div class="main-content-wrapper">
 
-      <div class="middle-section">
-        <!-- Hier können Sie weitere Inhalte hinzufügen -->
-      </div>
+      <section class="top-section">
+        <h1 class="title">Titel (Text einfügen...)</h1>
+        <p class="description">Beschreibung (Text einfügen...)</p>
+      </section>
 
-      <div class="bottom-section">
-        <!-- Logindaten eingeben -->
+      <section class="middle-section">
+        <!-- Hier können Informationen, Spielstatus oder Anleitungen stehen -->
+      </section>
 
-         <form id="loginForm">
-      <div>
-        <label>Benutzername</label>
-        <input type="text" id="username" required />
-      </div>
+      <section class="bottom-section">
+        <!-- Buttons und Eingabefelder -->
+         <p>Noch keinen Account? <br><a href="../html/register.html">Registrieren</a></p>
+        <form id="loginForm">
+          <div class="slot">
+            <input type="text" id="username" class="input-field" placeholder="Benutzernamen eingeben" aria-label="Benutzernamen eingeben" required/>
+          </div>
+          <div class="slot">
+            <input type="email" id="email" class="input-field" placeholder="E-Mail Adresse" aria-label="E-Mail Adresse" required/>
+          </div>
+          <div class="slot">
+            <input type="password" id="password" class="input-field" placeholder="Passwort" aria-label="Passwort" required/>
+          </div>
 
-      <div>
-        <label>Email</label>
-        <input type="email" id="email" required />
-      </div>
+          <div class="slot">
+            <button class="btn-confirm" title="Login">Login</button>
+          </div>
+        </form>
+      </section>
 
-      <div>
-        <label>Password</label>
-        <input type="password" id="password" required />
-      </div>
-
-      <button type="btn-confirm">Login</button>
-    </form>
-
-        <p>Noch keinen Account? <br><a href="../html/register.html">Registrieren</a></p>
       </div>
     </main>
 
-    <footer>
+    <footer class="app-footer">
       <p>Made with lots of Swiss Chocolate</p>
       <p>© 2025 by HappyLight</p>
     </footer>
-    
-    <script src="../js/login.js"></script>
+  </div>
+  <script src="../js/login.js"></script>
   </body>
 </html>
