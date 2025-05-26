@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scharade Spiel by HappyLight</title>
+  <title>Scharade Frei:Einstellungen by HappyLight</title>
   <link rel="icon" type="image/x-icon" href="/0_media/bilder/Logo Happy Scharade V1.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lexend:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -16,20 +16,14 @@
       <!-- Logo -->
       <img src="/0_media/bilder/Logo Happy Scharade V1 white.svg" alt="Logo von Happy Scharade" class="logo" />
 
-      <!-- Login -->
-      <nav class="user-nav">
-        <span class="welcome-text">Hallo <span class="username">&lt;username&gt;</span></span>
-        <a href="/html/login.html" class="login">Login</a>
-        <a href="/php/logout.php" class="logout">Logout</a>
-      </nav>
     </header>
 
     <main class="main-section">
       <div class="main-content-wrapper">
 
       <section class="top-section">
-        <h1 class="title">Titel (Text einfügen...)</h1>
-        <p class="description">Beschreibung (Text einfügen...)</p>
+        <h1 class="title">Einstellungen</h1>
+        <p class="description">Wähle aus der Liste deine gewünschten Kategorien für die angezeigten Begriffe.</p>
       </section>
 
       <section class="middle-section">
@@ -38,14 +32,6 @@
 
       <section class="bottom-section">
         <!-- Buttons und Eingabefelder -->
-        <div class="slot">
-          <a href=""><button class="btn-link" title="Neue Runde starten">Neue Runde</button></a>
-        </div>
-
-        <div class="slot">
-          <a href=""><button class="btn-confirm" title="Eingabe bestätigen">Bestätigen</button></a>
-        </div>
-
         <div class="dropdown-wrapper">
           <button class="btn-dropdown" onclick="toggleDropdown()">Auswahl öffnen<span class="dropdown-icon">▾</span></button>
             <div class="dropdown-menu hidden">
@@ -60,9 +46,8 @@
         </div>
 
         <div class="slot">
-          <input type="text" class="input-field" placeholder="Begriff eingeben" aria-label="Begriff eingeben" />
+          <a href="/html/spiel/Begriff-Frei.html"><button class="btn-confirm" title="Eingabe bestätigen">Bestätigen</button></a>
         </div>
-      </section>
 
       </div>
     </main>

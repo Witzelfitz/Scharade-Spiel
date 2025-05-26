@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scharade Spiel by HappyLight</title>
+  <title>Scharade Spielauswahl by HappyLight</title>
   <link rel="icon" type="image/x-icon" href="/0_media/bilder/Logo Happy Scharade V1.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lexend:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -11,25 +11,19 @@
 
 <body>
   <div class="app-container">
-    
+
     <header class="app-header">
       <!-- Logo -->
       <img src="/0_media/bilder/Logo Happy Scharade V1 white.svg" alt="Logo von Happy Scharade" class="logo" />
 
-      <!-- Login -->
-      <nav class="user-nav">
-        <span class="welcome-text">Hallo <span class="username">&lt;username&gt;</span></span>
-        <a href="/html/login.html" class="login">Login</a>
-        <a href="/php/logout.php" class="logout">Logout</a>
-      </nav>
     </header>
 
     <main class="main-section">
       <div class="main-content-wrapper">
 
       <section class="top-section">
-        <h1 class="title">Scharade Spiel</h1>
-        <p class="description">Wähle aus</p>
+        <h1 class="title">Auswahl Spielmodus</h1>
+        <!-- <p class="description">Beschreibung (Text einfügen...)</p> -->
       </section>
 
       <section class="middle-section">
@@ -39,20 +33,28 @@
       <section class="bottom-section">
         <!-- Buttons und Eingabefelder -->
         <div class="slot">
-          <a href="html/spiel/1_AuswahlSpielmodus.html"><button class="btn-link" title="Auswahl Spielmodus">Scharade spielen</button></a>
+          <a href="/html/spiel/2_Frei-Einstellungen.html"><button class="btn-link" title="Spielmodus_Frei">Freies Spielen</button></a>
         </div>
-        <div class="slot">
-          <a href="html/begriffEintragen.html"><button class="btn-link" title="Begriffe eintragen">Begriffe eintragen der DB</button></a>
-        </div>
-      </section>
 
+        <div class="slot">
+          <a href=""><button class="btn-link" title="Spielmodus_Zeit">Zeitangriff (bald)</button></a>
+        </div>
+
+        <div class="slot">
+          <a href=""><button class="btn-link" title="Spielmodus_Team">Team Kampf (bald)</button></a>
+        </div>
+
+      </div>
     </main>
 
     <footer class="app-footer">
       <p>Made with lots of Swiss Chocolate</p>
       <p>© 2025 by HappyLight</p>
     </footer>
-    
+
   </div>
+
+  <script></script>
+
 </body>
 </html>

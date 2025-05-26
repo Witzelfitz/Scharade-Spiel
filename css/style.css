@@ -116,8 +116,9 @@ a:hover {
   font-size: 2rem;
   text-align: center;
   padding: 0.8rem 0.5rem;
+  border-radius: 0.5rem;
   margin-bottom: 1rem;
-  background-color: #222;
+  background-color: #222222dd;
 }
 
 .description {
@@ -134,8 +135,9 @@ a:hover {
 
 /* Buttons */
 .btn-link,
-.btn-dropdown,
 .btn-confirm,
+.btn-cancel,
+.btn-dropdown,
 .input-field {
   width: 100%;
   padding: 1rem;
@@ -148,7 +150,17 @@ a:hover {
 }
 
 .btn-link {
-  background-color: var(--color-blue);
+  background-color: var(--color-dark-text);
+  color: white;
+}
+
+.btn-confirm {
+  background-color: var(--color-green);
+  color: white;
+}
+
+.btn-cancel {
+  background-color: var(--color-primary-bg);
   color: white;
 }
 
@@ -223,11 +235,6 @@ a:hover {
   display: none;
 }
 
-.btn-confirm {
-  background-color: var(--color-green);
-  color: white;
-}
-
 .input-field {
   background-color: #fff;
   color: var(--color-dark-text);
@@ -235,7 +242,7 @@ a:hover {
 
 /* Button aktiv */
 .btn-link:active,
-.btn-dropdown:active,
-.btn-confirm:active {
+.btn-confirm:active,
+.btn-dropdown:active {
   filter: brightness(0.9);
 }
