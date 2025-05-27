@@ -1,6 +1,6 @@
 <?php
 ini_set('session.cookie_httponly', 1);
-// ini_set('session.cookie_secure', 1); // if using HTTPS
+// ini_set('session.cookie_secure', 1); // bei HTTPS
 session_start();
 header('Content-Type: application/json');
 
@@ -11,26 +11,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    if (!$username !$email || !$password) {
-        echo json_encode(["status" => "error", "message" => "Email and password are required"]);
+    if (!$username || !$email || !$password) {
+        echo json_encode(["status" => "error", "message" => "Alle Felder sind erforderlich."]);
         exit;
     }
 
-    // Check user in DB
-    $stmt = $pdo->prepare("SELECT id, password FROM users WHERE email = :email");
+    $stmt = $pdo->prepare("SELECT Id_User, password FROM users WHERE email = :email");
     $stmt->execute([':email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Verify password
     if ($user && password_verify($password, $user['password'])) {
         session_regenerate_id(true);
-        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_id'] = $user['Id_User'];
         $_SESSION['email']   = $email;
 
         echo json_encode(["status" => "success"]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Invalid credentials"]);
+        echo json_encode(["status" => "error", "message" => "Ungültige Anmeldedaten."]);
     }
 } else {
-    echo json_encode(["status" => "error", "message" => "Invalid request method"]);
+    echo json_encode(["status" => "error", "message" => "Ungültige Anfragemethode."]);
 }
+?>

@@ -16,3 +16,4 @@ echo json_encode([
     "user_id" => $_SESSION['user_id'],
     "email" => $_SESSION['email']
 ]);
+?>

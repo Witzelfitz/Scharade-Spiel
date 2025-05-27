@@ -1,39 +1,55 @@
-<?php   
+<?php
+// Prüfung
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 header('Content-Type: application/json');
 
 require_once '../system/config.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $email    = trim($_POST['email'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(["status" => "error", "message" => "Ungültige Anfrage"]);
+    exit;
+}
 
-    if (!$username || !$email || !$password) {
-        echo json_encode(["status" => "error", "message" => "Email and password are required"]);
-        exit;
-    }
+$username = trim($_POST['username'] ?? '');
+$email    = trim($_POST['email'] ?? '');
+$password = trim($_POST['password'] ?? '');
 
-    // Check if email already exists
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE email = :email");
+if (!$username || !$email || !$password) {
+    echo json_encode(["status" => "error", "message" => "Alle Felder sind erforderlich."]);
+    exit;
+}
+
+// Try & Catch
+try {
+    // Prüfe, ob E-Mail bereits existiert
+    $stmt = $pdo->prepare("SELECT Id_User FROM users WHERE email = :email");
     $stmt->execute([':email' => $email]);
     if ($stmt->fetch()) {
-        echo json_encode(["status" => "error", "message" => "Email is already in use"]);
+        echo json_encode(["status" => "error", "message" => "E-Mail ist bereits vergeben."]);
         exit;
     }
 
-    // Hash the password
+    // Passwort hashen
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert the new user
-    $insert = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :pass)");
+    // Benutzer einfügen
+    $insert = $pdo->prepare("INSERT INTO users (username, email, password) 
+                             VALUES (:username, :email, :pass)");
     $insert->execute([
         ':username' => $username,
-        ':email' => $email,
-        ':pass'  => $hashedPassword
+        ':email'    => $email,
+        ':pass'     => $hashedPassword
     ]);
 
     echo json_encode(["status" => "success"]);
-} else {
-    echo json_encode(["status" => "error", "message" => "Invalid request method"]);
+    exit;
+
+} catch (PDOException $e) {
+    echo json_encode(["status" => "error", "message" => "Fehler beim Einfügen: " . $e->getMessage()]);
+    exit;
 }
+?>

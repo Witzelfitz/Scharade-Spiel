@@ -11,11 +11,12 @@ async function checkAuth() {
 
     const result = await response.json();
 
-    // Display user data in the protected content div
+    // Display user data in the protected content div (protected.html)
     const protectedContent = document.getElementById("protectedContent");
     protectedContent.innerHTML = `
-      <h2>Welcome, ${result.email}!</h2>
-      <p>Your user ID is: ${result.user_id}</p>
+      <h2>Welcome, ${result.username}!</h2>
+      <p>Deine email ist: ${result.email}</p>
+      <p>Deine user ID ist: ${result.user_id}</p>
     `;
 
     return true;

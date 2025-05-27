@@ -7,6 +7,15 @@ document
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
 
+    if (!username || !email || !password) {
+      alert("Bitte fülle alle Felder aus.");
+      return;
+    }
+    if (password.length < 6) {
+      alert("Das Passwort muss mindestens 6 Zeichen lang sein.");
+      return;
+    }
+    
     try {
       const response = await fetch("../api/register.php", {
         method: "POST",

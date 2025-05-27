@@ -3,21 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Protected</title>
+  <title>Login erfolgreich! protected</title>
   <link rel="icon" type="image/x-icon" href="/0_media/bilder/Logo Happy Scharade V1.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lexend:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 
-  <body>
-    <h1>Protected Page</h1>
+<body>
+  <div class="app-container">
 
-    <!-- This is where we'll dynamically show the protected content -->
-    <div id="protectedContent"></div>
+    <!-- header -->
+    <header class="app-header">
+      <!-- Logo -->
+      <a href="../index.html"></a><img src="/0_media/bilder/Logo Happy Scharade V1 white.svg" alt="Logo von Happy Scharade" class="logo" />
 
-    <button id="logoutBtn">Logout</button>
+      <!-- Login -->
+      <nav class="user-nav">
+        <!-- <span class="welcome-text">Hallo <span class="username">&lt;username&gt;</span></span>
+        <a href="/html/login.html" class="login">Login</a>
+        <a href="/php/logout.php" class="logout">Logout</a> -->
+      </nav>
+    </header>
 
-    <script src="../js/protected.js"></script>
-    <script src="../js/logout.js"></script>
-  </body>
+
+    <!-- main -->
+    <main class="main-section">
+      <div class="main-content-wrapper">
+
+      <section class="top-section">
+        <h1 class="title">Login erfolgreich</h1>
+        <p class="description">Möchtest du nun Begriffe eintragen?</p>
+      </section>
+
+      <section class="middle-section">
+        <!-- Hier können Informationen, Spielstatus oder Anleitungen stehen -->
+         <!-- This is where we'll dynamically show the protected content -->
+        <div id="protectedContent"></div>
+      </section>
+
+      <section class="bottom-section">
+        <!-- Buttons und Eingabefelder -->
+
+        <div class="slot">
+          <a href="/html/begriffEintragen.html"><button class="btn-confirm" title="Begriff eingeben">Begriff eingeben</button></a>
+        </div>
+
+        <div class="slot">
+          <button id="logoutBtn" class="btn-link" title="Logout">Logout</button>
+        </div>
+
+      </section>
+
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p>Made with lots of Swiss Chocolate</p>
+      <p>© 2025 by HappyLight</p>
+    </footer>
+
+  </div>
+
+  <script src="../js/protected.js"></script>
+  <script src="../js/logout.js"></script>
+
+</body>
 </html>
