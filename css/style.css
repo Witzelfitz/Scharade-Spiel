@@ -230,6 +230,17 @@ a:hover {
   margin-right: 0.5rem;
 }
 
+.success {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
 /* Toggle visibility */
 .hidden {
   display: none;
