@@ -2,7 +2,7 @@
 // api/begriff-eintragen.php
 
 header('Content-Type: application/json');
-require_once '../config/db.php'; // PDO-Verbindung: $pdo
+require_once 'config/db.php'; // PDO-Verbindung: $pdo
 
 try {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -33,13 +33,4 @@ try {
         http_response_code(500);
         echo json_encode(['message' => 'Serverfehler.', 'error' => $e->getMessage()]);
     }
-}
-
-if (res.ok) {
-  feedbackText.textContent = 'Begriff wurde gespeichert.';
-  feedbackText.className = 'success';
-  document.getElementById('begriffInput').value = '';
-} else {
-  feedbackText.textContent = result.message || 'Fehler beim Speichern.';
-  feedbackText.className = 'error';
 }
