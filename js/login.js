@@ -8,20 +8,25 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   try {
     const response = await fetch("../api/login.php", {
       method: "POST",
-      // credentials: 'include', // uncomment if front-end & back-end are on different domains
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ username, email, password }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, email, password })
     });
+
     const result = await response.json();
 
-    if (result.status === "success") {
-      alert("Login successful!");
-      window.location.href = "../html/protected.html";
+    if (response.ok && result.status === "success") {
+      // ✅ Speichere Daten im localStorage
+      localStorage.setItem("ID_User", result.ID_User);
+      localStorage.setItem("username", result.username);
+
+      alert("Login erfolgreich!");
+      window.location.href = "../html/begriffEintragen.html";
     } else {
-      alert(result.message || "Login failed.");
+      alert(result.message || "Login fehlgeschlagen.");
     }
+
   } catch (error) {
-    console.error("Error:", error);
-    alert("Something went wrong!");
+    console.error("Fehler beim Login:", error);
+    alert("Serverfehler – bitte später versuchen.");
   }
 });

@@ -2,7 +2,7 @@
 // api/begriff-eintragen.php
 
 header('Content-Type: application/json');
-require_once 'config/db.php'; // PDO-Verbindung: $pdo
+require_once 'config/db.php'; // stellt sicher, dass $pdo vorhanden ist
 
 try {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -20,17 +20,22 @@ try {
     $idKategorie = intval($input['ID_Kategorie']);
     $idUser = intval($input['ID_User']);
 
-    $stmt = $pdo->prepare('INSERT INTO begriff (begriff_name, ID_Kategorie, ID_User, status) VALUES (?, ?, ?, "aktiv")');
+    $stmt = $pdo->prepare(
+        'INSERT INTO Begriff (Begriff_Name, ID_Kategorie, ID_User, Status) VALUES (?, ?, ?, "aktiv")'
+    );
     $stmt->execute([$begriff, $idKategorie, $idUser]);
 
     echo json_encode(['message' => 'Begriff erfolgreich gespeichert.']);
 
 } catch (PDOException $e) {
     if ($e->getCode() === '23000') {
-        http_response_code(409); // Conflict
+        http_response_code(409); // Duplicate entry
         echo json_encode(['message' => 'Begriff existiert bereits.']);
     } else {
         http_response_code(500);
-        echo json_encode(['message' => 'Serverfehler.', 'error' => $e->getMessage()]);
+        echo json_encode([
+            'message' => 'Serverfehler.',
+            'error' => $e->getMessage() // nur zur Entwicklung aktiv lassen
+        ]);
     }
 }
