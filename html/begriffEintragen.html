@@ -12,12 +12,9 @@
 <body>
   <div class="app-container">
 
-    <!-- header -->
     <header class="app-header">
-      <!-- Logo -->
-      <a href="index.html"></a><img src="/0_media/bilder/Logo Happy Scharade V1 white.svg" alt="Logo von Happy Scharade" class="logo" />
+      <a href="index.html"><img src="/0_media/bilder/Logo Happy Scharade V1 white.svg" alt="Logo von Happy Scharade" class="logo" /></a>
 
-      <!-- Login -->
       <nav class="user-nav">
         <div class="user-info hidden">
           Angemeldet als: <span id="username-display"></span>
@@ -28,64 +25,42 @@
       </nav>
     </header>
 
-    <!-- main -->
     <main class="main-section">
       <div class="main-content-wrapper">
 
-      <section class="top-section">
-        <h1 class="title">Begriff eintragen</h1>
-        <p class="description">Schreibe einen Begriff auf, der für Scharade gespielt werden kann. Wähle aus dem Dropdown-Menü eine zugehörige Kategorie aus. Das wird dann der Datenbank hinzugefügt.</p>
-      </section>
+        <section class="top-section">
+          <h1 class="title">Begriff eintragen</h1>
+          <p class="description">Schreibe einen Begriff auf, der für Scharade gespielt werden kann. Wähle aus dem Dropdown-Menü eine zugehörige Kategorie aus. Das wird dann der Datenbank hinzugefügt.</p>
+        </section>
 
-      <section class="middle-section">
-        <!-- Info Bestätigung, dass der Begriff hinzugefügt wurde. Oder Error, falls nicht funktioniert hat. -->
-      </section>
+        <section class="middle-section" id="feedback-message">
+          <!-- Bestätigung oder Fehlermeldung -->
+        </section>
 
-      <section class="bottom-section"> <!-- für Buttons und Eingabefelder-->
-         <div class="slot">
-          <input type="text" class="input-field" placeholder="Begriff eingeben" aria-label="Begriff eingeben" />
-        </div>
-
-        <!-- Drop-Down Menü für die Kategorie -->
-        <div class="dropdown-wrapper">
-          <button class="btn-dropdown" onclick="toggleDropdown()">
-            <span id="dropdown-label">Kategorie auswählen</span>
-            <span class="dropdown-icon">▾</span>
-          </button>
-          <div class="dropdown-menu hidden">
-            <label><input type="radio" name="kategorie" value="Videospiele"> Videospiele</label>
-            <label><input type="radio" name="kategorie" value="Film"> Film</label>
-            <label><input type="radio" name="kategorie" value="TV"> TV</label>
-            <label><input type="radio" name="kategorie" value="Anime/Manga"> Anime/Manga</label>
-            <label><input type="radio" name="kategorie" value="Literatur"> Literatur</label>
-            <label><input type="radio" name="kategorie" value="Zeichenkunst"> Zeichenkunst</label>
-            <label><input type="radio" name="kategorie" value="Theater"> Theater</label>
-            <label><input type="radio" name="kategorie" value="Musik & Instrumente"> Musik & Instrumente</label>
-            <label><input type="radio" name="kategorie" value="Spiele"> Spiele</label>
-            <label><input type="radio" name="kategorie" value="Wissenschaften"> Wissenschaften</label>
-            <label><input type="radio" name="kategorie" value="Geografie"> Geografie</label>
-            <label><input type="radio" name="kategorie" value="Tradition"> Tradition</label>
-            <label><input type="radio" name="kategorie" value="Politik"> Politik</label>
-            <label><input type="radio" name="kategorie" value="Haushalt"> Haushalt</label>
-            <label><input type="radio" name="kategorie" value="Sport"> Sport</label>
-            <label><input type="radio" name="kategorie" value="Kleidung"> Kleidung</label>
-            <label><input type="radio" name="kategorie" value="Schule"> Schule</label>
-            <label><input type="radio" name="kategorie" value="Memes"> Memes</label>
-            <label><input type="radio" name="kategorie" value="Generisch"> Generisch</label>
+        <section class="bottom-section">
+          <div class="slot">
+            <input type="text" class="input-field" id="begriffInput" placeholder="Begriff eingeben" aria-label="Begriff eingeben" />
           </div>
-        </div>
 
+          <div class="dropdown-wrapper">
+            <button class="btn-dropdown" onclick="toggleDropdown()">
+              <span id="dropdown-label">Kategorie auswählen</span>
+              <span class="dropdown-icon">▾</span>
+            </button>
+            <div class="dropdown-menu hidden" id="kategorienContainer">
+              <p>Kategorien werden geladen ...</p>
+            </div>
+          </div>
 
-        <div class="slot">
-          <a href=""><button class="btn-confirm" title="Eingabe bestätigen">Bestätigen</button></a>
-        </div>
+          <div class="slot">
+            <button id="submitBegriff" class="btn-confirm" title="Eingabe bestätigen">Bestätigen</button>
+          </div>
 
-        <div class="slot">
-          <a href=""><button class="btn-cancel" title="Zurück">Abbrechen</button></a>
-        </div>
+          <div class="slot">
+            <a href=""><button class="btn-cancel" title="Zurück">Abbrechen</button></a>
+          </div>
 
-      </section>
-
+        </section>
       </div>
     </main>
 
@@ -98,6 +73,6 @@
 
   <script src="/js/checkLogin.js"></script>
   <script src="/js/menuDropDown.js"></script>
-
+  <script src="/js/ladeKategorien.js"></script>
 </body>
 </html>
