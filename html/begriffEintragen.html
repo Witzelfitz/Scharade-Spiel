@@ -41,24 +41,40 @@
         <!-- Info Bestätigung, dass der Begriff hinzugefügt wurde. Oder Error, falls nicht funktioniert hat. -->
       </section>
 
-      <section class="bottom-section">
-        <!-- Buttons und Eingabefelder -->
+      <section class="bottom-section"> <!-- für Buttons und Eingabefelder-->
          <div class="slot">
           <input type="text" class="input-field" placeholder="Begriff eingeben" aria-label="Begriff eingeben" />
         </div>
 
+        <!-- Drop-Down Menü für die Kategorie -->
         <div class="dropdown-wrapper">
-          <button class="btn-dropdown" onclick="toggleDropdown()">Kategorie auswählen<span class="dropdown-icon">▾</span></button>
-            <div class="dropdown-menu hidden">
-              <label><input type="checkbox" value="Option 1"> Option 1</label>
-              <label><input type="checkbox" value="Option 2"> Option 2</label>
-              <label><input type="checkbox" value="Option 3"> Option 3</label>
-              <label><input type="checkbox" value="Option 4"> Option 4</label>
-              <label><input type="checkbox" value="Option 5"> Option 5</label>
-              <label><input type="checkbox" value="Option 6"> Option 6</label>
-              <label><input type="checkbox" value="Option 7"> Option 7</label>
-            </div>
+          <button class="btn-dropdown" onclick="toggleDropdown()">
+            <span id="dropdown-label">Kategorie auswählen</span>
+            <span class="dropdown-icon">▾</span>
+          </button>
+          <div class="dropdown-menu hidden">
+            <label><input type="radio" name="kategorie" value="Videospiele"> Videospiele</label>
+            <label><input type="radio" name="kategorie" value="Film"> Film</label>
+            <label><input type="radio" name="kategorie" value="TV"> TV</label>
+            <label><input type="radio" name="kategorie" value="Anime/Manga"> Anime/Manga</label>
+            <label><input type="radio" name="kategorie" value="Literatur"> Literatur</label>
+            <label><input type="radio" name="kategorie" value="Zeichenkunst"> Zeichenkunst</label>
+            <label><input type="radio" name="kategorie" value="Theater"> Theater</label>
+            <label><input type="radio" name="kategorie" value="Musik & Instrumente"> Musik & Instrumente</label>
+            <label><input type="radio" name="kategorie" value="Spiele"> Spiele</label>
+            <label><input type="radio" name="kategorie" value="Wissenschaften"> Wissenschaften</label>
+            <label><input type="radio" name="kategorie" value="Geografie"> Geografie</label>
+            <label><input type="radio" name="kategorie" value="Tradition"> Tradition</label>
+            <label><input type="radio" name="kategorie" value="Politik"> Politik</label>
+            <label><input type="radio" name="kategorie" value="Haushalt"> Haushalt</label>
+            <label><input type="radio" name="kategorie" value="Sport"> Sport</label>
+            <label><input type="radio" name="kategorie" value="Kleidung"> Kleidung</label>
+            <label><input type="radio" name="kategorie" value="Schule"> Schule</label>
+            <label><input type="radio" name="kategorie" value="Memes"> Memes</label>
+            <label><input type="radio" name="kategorie" value="Generisch"> Generisch</label>
+          </div>
         </div>
+
 
         <div class="slot">
           <a href=""><button class="btn-confirm" title="Eingabe bestätigen">Bestätigen</button></a>
