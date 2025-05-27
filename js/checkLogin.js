@@ -1,34 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const token = localStorage.getItem('token');
-
-  if (!token) {
-    window.location.href = 'login.html'; // Kein Token vorhanden, weiterleiten
-    return;
-  }
-
-  fetch('/api/protected.php', {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
+  fetch('../api/session_check.php', {
+    credentials: 'include'
   })
-  .then(res => {
-    if (!res.ok) throw new Error('Nicht autorisiert');
-    return res.json();
-  })
-  .then(data => {
-    console.log('Zugriff erlaubt:', data);
-    // Optional: Nutzername anzeigen
-    if (data.username) {
-      const userDisplay = document.querySelector('#username-display');
-      if (userDisplay) {
-        userDisplay.textContent = data.username;
+    .then(res => res.json())
+    .then(data => {
+      if (!data.loggedIn) {
+        window.location.href = 'login.html';
+      } else {
+        console.log('Zugriff erlaubt für:', data.username);
+        
+        const userDisplay = document.querySelector('#username-display');
+        if (userDisplay && data.username) {
+          userDisplay.textContent = data.username;
+        }
       }
-    }
-  })
-  .catch(err => {
-    console.warn('Nicht eingeloggt oder Session abgelaufen');
-    localStorage.removeItem('token');
-    window.location.href = 'login.html';
-  });
+    })
+    .catch(err => {
+      console.warn('Fehler beim Session-Check:', err);
+      window.location.href = 'login.html';
+    });
 });
