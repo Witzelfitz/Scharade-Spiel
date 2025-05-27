@@ -7,12 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!data.loggedIn) {
         window.location.href = 'login.html';
       } else {
-        console.log('Zugriff erlaubt für:', data.username);
-        
-        const userDisplay = document.querySelector('#username-display');
-        if (userDisplay && data.username) {
-          userDisplay.textContent = data.username;
-        }
+        const userSpan = document.querySelector('#username-display');
+        const emailSpan = document.querySelector('#email-display');
+
+        if (userSpan) userSpan.textContent = data.username;
+        if (emailSpan) emailSpan.textContent = data.email;
       }
     })
     .catch(err => {
