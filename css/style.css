@@ -246,3 +246,33 @@ a:hover {
 .btn-dropdown:active {
   filter: brightness(0.9);
 }
+
+/* Login / Logout Buttons in Header */
+.login-btn,
+.logout-btn {
+  color: var(--color-primary-text);
+  padding: 0.3rem 1rem;
+  margin: 0.3rem 0rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn {
+  background-color: var(--color-green);
+}
+.logout-btn {
+  background-color: var(--color-primary-bg);
+}
+
+.login-btn:hover,
+.logout-btn:hover {
+  background-color: var(--color-blue);
+}
+.login-btn:active,
+.logout-btn:active {
+  filter: brightness(0.9);
+}
