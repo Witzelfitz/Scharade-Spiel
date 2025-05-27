@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const userSpan = document.querySelector('#username-display');
   const emailSpan = document.querySelector('#email-display');
   const loginBtn = document.querySelector('.login-btn');
-  const logoutBtn = document.querySelector('#logoutBtn'); // Nur ein Logout-Button
+  const logoutBtn = document.querySelector('#logoutBtn');
   const userInfo = document.querySelector('.user-info');
 
   fetch('../api/session_check.php', {
