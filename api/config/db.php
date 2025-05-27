@@ -1,10 +1,4 @@
-<?php
-$host = 'iu6x22.myd.infomaniak.com';
-$db   = 'iu6x22_Begriffe_Scharade';
-$user = 'iu6x22_Begriffe';
-$pass = 'X9wGf&Rab93aPo!&Je';
-$charset = 'utf8mb4';
-
+x
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // wichtig!
