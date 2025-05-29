@@ -34,7 +34,7 @@
 
       <section class="top-section">
         <!-- Der Begriff wird aus der DB geholt. Es wird ein zufälliger Begriff angezeigt. Falls Kategorien ausgewählt wurden, werden nur Begriffe aus dieser Kategorie geholt. -->
-        <h1 class="title">Begriff</h1>
+        <h1 class="title" id="begriffAnzeigen">Lade Begriff...</h1>
       </section>
 
       <section class="middle-section">
@@ -44,7 +44,7 @@
       <section class="bottom-section">
         <!-- Button "Nächster Begriff" hat einen Cooldown von 5s, bevor er benutzt werden kann und den nächsten Begriff in der Top-section angezeigt wird. -->
         <div class="slot">
-          <a href=""><button class="btn-confirm" title="Begriff-next">Nächster Begriff</button></a>
+          <button id="naechsterBegriffBtn" class="btn-confirm" title="Begriff-next">Nächster Begriff</button>
         </div>
 
         <div class="slot">
@@ -63,7 +63,7 @@
 
   </div>
 
-  <script></script>
+  <script src="../../js/begriffSpielFrei.js"></script>
 
 </body>
 </html>

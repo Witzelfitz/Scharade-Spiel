@@ -22,14 +22,31 @@ document.addEventListener('DOMContentLoaded', () => {
         kategorienContainer.appendChild(label);
       });
 
+      // document.querySelectorAll('input[name="kategorie"]').forEach((radio) => {
+      //   radio.addEventListener('change', (event) => {
+      //     const selectedLabel = kategorien.find(k => k.ID_Kategorie == event.target.value).Kategorie_Name;
+      //     document.getElementById('dropdown-label').textContent = selectedLabel;
+      //     kategorienContainer.classList.add('hidden');
+      //   });
+      // });
+
       document.querySelectorAll('input[name="kategorie"]').forEach((radio) => {
         radio.addEventListener('change', (event) => {
-          const selectedLabel = kategorien.find(k => k.ID_Kategorie == event.target.value).Kategorie_Name;
+          const selectedId = event.target.value;
+          const selectedLabel = kategorien.find(k => k.ID_Kategorie == selectedId).Kategorie_Name;
+
+          // UI aktualisieren
           document.getElementById('dropdown-label').textContent = selectedLabel;
           kategorienContainer.classList.add('hidden');
+
+          // In localStorage speichern
+          localStorage.setItem('ausgewaehlteKategorieID', selectedId);
+          localStorage.setItem('ausgewaehlteKategorieName', selectedLabel);
+          console.log('Kategorie gespeichert:', selectedId, selectedLabel); // Debug-Ausgabe
         });
       });
     })
+
     .catch(err => {
       kategorienContainer.innerHTML = '<p>Fehler beim Laden der Kategorien</p>';
       console.error(err);
