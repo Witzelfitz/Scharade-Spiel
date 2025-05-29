@@ -43,17 +43,16 @@
 
       <section class="bottom-section">
         <!-- Buttons und Eingabefelder -->
+        <!-- Dropdown-Button -->
         <div class="dropdown-wrapper">
-          <button class="btn-dropdown" onclick="toggleDropdown()">Auswahl öffnen<span class="dropdown-icon">▾</span></button>
-            <div class="dropdown-menu hidden">
-              <label><input type="checkbox" value="Option 1"> Option 1</label>
-              <label><input type="checkbox" value="Option 2"> Option 2</label>
-              <label><input type="checkbox" value="Option 3"> Option 3</label>
-              <label><input type="checkbox" value="Option 4"> Option 4</label>
-              <label><input type="checkbox" value="Option 5"> Option 5</label>
-              <label><input type="checkbox" value="Option 6"> Option 6</label>
-              <label><input type="checkbox" value="Option 7"> Option 7</label>
-            </div>
+          <button class="btn-dropdown" onclick="toggleDropdown()">
+            <span id="dropdown-label">Auswahl öffnen</span>
+            <span class="dropdown-icon">▾</span>
+          </button>
+
+          <div class="dropdown-menu hidden" id="kategorienContainer">
+            <!-- Wird von ladeKategorien.js befüllt -->
+          </div>
         </div>
 
         <div class="slot">
@@ -72,6 +71,7 @@
 
   <script></script>
   <script src="/js/menuDropDown.js"></script>
+  <script src="/js/ladeKategorien.js"></script>
 
 </body>
 </html>
