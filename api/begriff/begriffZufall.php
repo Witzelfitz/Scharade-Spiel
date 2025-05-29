@@ -42,7 +42,7 @@ try {
 
   $begriffe = [];
   while ($row = $result->fetch_assoc()) {
-    $begriffe[] = $row['Begriff_Name'];
+    $begriffe[] = ['Begriff_Name' => $row['Begriff_Name']];
   }
 
   echo json_encode(["status" => "success", "begriffe" => $begriffe]);

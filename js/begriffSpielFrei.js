@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function ladeBegriffe() {
     try {
-      const res = await fetch(`/api/begriffeZufall.php?kategorie=${kategorieId}&anzahl=7`);
+      const res = await fetch(`/api/begriffZufall.php?kategorie=${kategorieId}&anzahl=7`);
       if (!res.ok) throw new Error('Fehler beim Laden der Begriffe');
       const begriffe = await res.json();
 
