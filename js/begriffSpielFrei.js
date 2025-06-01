@@ -4,16 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
   let begriffQueue = [];
   let cooldown = false;
 
-  const kategorieId = localStorage.getItem('selectedKategorie');
+  const kategorieId = localStorage.getItem('selectedKategorie', '1');
 
   async function ladeBegriffe() {
     try {
-      const res = await fetch(`/api/begriffZufall.php?kategorie=${kategorieId}&anzahl=7`);
+      let url = '/api/begriff/begriffZufall.php?anzahl=7';
+      if (kategorieId && !isNaN(kategorieId) && Number(kategorieId) > 0) {
+        url += `&kategorie=${kategorieId}`;
+      }
+      
+      const res = await fetch(url);
       if (!res.ok) throw new Error('Fehler beim Laden der Begriffe');
-      const begriffe = await res.json();
+      const data = await res.json();
+      if (data.status !== 'success') throw new Error('Serverfehler beim Laden der Begriffe');
 
-      begriffQueue.push(...begriffe);
-      if (title.textContent === 'Begriff') zeigeNaechstenBegriff();
+      begriffQueue.push(...data.begriffe);
+
+      if (title.textContent.includes('Lade') || title.textContent === '' || title.textContent === 'Begriff') {
+        zeigeNaechstenBegriff();
+      }
+
     } catch (err) {
       console.error(err);
       title.textContent = 'Fehler beim Laden des Begriffs';
@@ -30,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const begriff = begriffQueue.shift();
     title.textContent = begriff.Begriff_Name;
 
-    // Nachladen wenn nur noch wenige übrig sind
     if (begriffQueue.length < 3) ladeBegriffe();
   }
 
@@ -45,9 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       cooldown = false;
       nextBtn.disabled = false;
-    }, 5000); // 5 Sekunden Cooldown
+    }, 5000);
   });
 
-  // Erste Begriffe laden
   ladeBegriffe();
 });

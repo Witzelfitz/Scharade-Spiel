@@ -3,5 +3,6 @@
 .Trashes
 *.zip
 config.php
+configBegriff.php
 index.php
 db.php

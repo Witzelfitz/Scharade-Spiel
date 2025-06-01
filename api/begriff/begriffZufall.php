@@ -1,6 +1,11 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 header('Content-Type: application/json');
-require_once '../../system/config.php'; // Verbdindung zur Datenbank
+require_once '../../system/configBegriff.php'; // Verbindung zur Datenbank
 
 // Parameter einlesen
 $anzahl = isset($_GET['anzahl']) ? intval($_GET['anzahl']) : 7;
@@ -13,29 +18,19 @@ if ($anzahl <= 0 || $anzahl > 100) {
 }
 
 try {
-  // Grund-Query
-  $sql = "SELECT Begriff_Name FROM Begriff WHERE Status = 'bestätigt'";
-  $params = [];
-
-  // Filter nach Kategorie, wenn gesetzt
-  if ($kategorie !== null) {
-    $sql .= " AND ID_Kategorie = ?";
-    $params[] = $kategorie;
-  }
-
-  // Zufällige Begriffe und Limit
-  $sql .= " ORDER BY RAND() LIMIT ?";
-  $params[] = $anzahl;
-
-  // Anfrage vorbereiten und ausführen
-  $stmt = $conn->prepare($sql);
-
-  // Dynamisch binden
-  if (count($params) === 2) {
-    $stmt->bind_param("ii", $params[0], $params[1]);
+  if ($kategorie !== null && $kategorie > 0) {
+    $sql = "SELECT Begriff_Name FROM Begriff WHERE Status = 'aktiv' AND ID_Kategorie = ? ORDER BY RAND() LIMIT ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $kategorie, $anzahl);
   } else {
-    $stmt->bind_param("i", $params[0]);
+    $sql = "SELECT Begriff_Name FROM Begriff WHERE Status = 'aktiv' ORDER BY RAND() LIMIT ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $anzahl);
   }
+
+  // Debug-Ausgaben (bei Problemen entkommentieren)
+  // error_log("SQL: " . $sql);
+  // error_log("Kategorie: " . $kategorie . ", Anzahl: " . $anzahl);
 
   $stmt->execute();
   $result = $stmt->get_result();
