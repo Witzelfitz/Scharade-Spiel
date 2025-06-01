@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 header('Content-Type: application/json');
-require_once '../../system/configBegriff.php'; // Verbindung zur Datenbank
+require_once '../../system/configBegriff.php'; // DB-Verbindung
 
 // Parameter einlesen
 $anzahl = isset($_GET['anzahl']) ? intval($_GET['anzahl']) : 7;
@@ -28,16 +28,21 @@ try {
     $stmt->bind_param("i", $anzahl);
   }
 
-  // Debug-Ausgaben (bei Problemen entkommentieren)
-  // error_log("SQL: " . $sql);
-  // error_log("Kategorie: " . $kategorie . ", Anzahl: " . $anzahl);
-
   $stmt->execute();
   $result = $stmt->get_result();
 
   $begriffe = [];
   while ($row = $result->fetch_assoc()) {
     $begriffe[] = ['Begriff_Name' => $row['Begriff_Name']];
+  }
+
+  // Prüfen, ob Begriffe gefunden wurden
+  if (empty($begriffe)) {
+    echo json_encode([
+      "status" => "error",
+      "message" => "Keine Begriffe in dieser Kategorie vorhanden."
+    ]);
+    exit;
   }
 
   echo json_encode(["status" => "success", "begriffe" => $begriffe]);
