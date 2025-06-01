@@ -64,9 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
     cooldown = true;
     nextBtn.disabled = true;
 
+    nextBtn.classList.add('btn-cooldown'); // Stil anwenden
+
     setTimeout(() => {
       cooldown = false;
       nextBtn.disabled = false;
+      nextBtn.classList.remove('btn-cooldown'); // Stil zurücksetzen
     }, 5000);
   });
 

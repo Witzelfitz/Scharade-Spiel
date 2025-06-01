@@ -258,6 +258,14 @@ a:hover {
   filter: brightness(0.9);
 }
 
+/* Button cooldown */
+.btn-cooldown {
+  background-color: #aaa !important; /* dünklerer Farbton */
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+
 /* Login / Logout Buttons in Header */
 .login-btn,
 .logout-btn {
