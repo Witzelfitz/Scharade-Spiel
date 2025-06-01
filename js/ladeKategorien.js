@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const kategorienContainer = document.getElementById('kategorienContainer');
+  const typ = kategorienContainer.dataset.typ || 'checkbox'; // Standard: checkbox
 
   fetch('/api/kategorien')
     .then(res => {
@@ -19,28 +20,29 @@ document.addEventListener('DOMContentLoaded', () => {
       kategorien.forEach(kategorie => {
         const label = document.createElement('label');
         label.innerHTML = `
-          <input type="checkbox" name="kategorie" value="${kategorie.ID_Kategorie}">
+          <input type="${typ}" name="kategorie" value="${kategorie.ID_Kategorie}">
           ${kategorie.Kategorie_Name}
         `;
         kategorienContainer.appendChild(label);
       });
 
-      // Gespeicherte Auswahl laden
-      const gespeicherteKategorien = JSON.parse(localStorage.getItem('selectedKategorien') || '[]');
-      if (gespeicherteKategorien.length > 0) {
-        gespeicherteKategorien.forEach(id => {
-          const checkbox = document.querySelector(`input[name="kategorie"][value="${id}"]`);
-          if (checkbox) checkbox.checked = true;
-        });
+      if (typ === 'checkbox') {
+        // Nur bei Checkboxen: Auswahl wiederherstellen und Label aktualisieren
+        const gespeicherteKategorien = JSON.parse(localStorage.getItem('selectedKategorien') || '[]');
+        if (gespeicherteKategorien.length > 0) {
+          gespeicherteKategorien.forEach(id => {
+            const checkbox = document.querySelector(`input[name="kategorie"][value="${id}"]`);
+            if (checkbox) checkbox.checked = true;
+          });
 
-        // Label aktualisieren
-        const namen = kategorien
-          .filter(k => gespeicherteKategorien.includes(k.ID_Kategorie.toString()))
-          .map(k => k.Kategorie_Name);
-        document.getElementById('dropdown-label').textContent = namen.join(', ');
+          const namen = kategorien
+            .filter(k => gespeicherteKategorien.includes(k.ID_Kategorie.toString()))
+            .map(k => k.Kategorie_Name);
+          document.getElementById('dropdown-label').textContent = namen.join(', ');
+        }
       }
 
-      // Listener für Checkbox-Änderung ist in menuDropDown.js
+      // Listener für Auswahl-Änderungen ist in menuDropDown.js
     })
     .catch(err => {
       kategorienContainer.innerHTML = '<p>Fehler beim Laden der Kategorien</p>';
