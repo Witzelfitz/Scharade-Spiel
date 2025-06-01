@@ -1,40 +1,106 @@
-# Projektdokumentation Scharade
-[Website Link](scharade.happyscharade.ch) <br>
-Es freut mich, euch meine Scharade Website zu zeigen. Scharade ist das beste Spiel. Ein Theaterspiel indem man Begriffe pantomimisch spielt, welche die anderen erraten müssen.
+<p align="center">
+  <img src="./0_media/bilder/Logo%20Happy%20Scharade%20V1%20white.svg" alt="Scharade Logo" width="150">
+</p>
 
-### Das Ziel der WebApp
->Das Problem bei Scharade ist, dass man dafür Begriffe braucht, die man nicht direkt weiss. Also erstelle ich selbst eine Datenbank, indem man Begriffe eintragen kann. <br>
-So kann man überall und jederzeit Scharade spielen.
+# 🎭 Scharade WebApp
 
-### Features
-- Register/Login
-- Begriffe der DB hinzufügen
-- Scharade Spielmodi: Freies Spiel, (weitere folgen...)
-- Kategorien auswählen: (1 oder mehr), Es holt Begriffe aus diesen Kategorien. Man kann das DropDown-Menü auch leer lassen
-- zufälligen Begriff anzeigen lassen
+Willkommen zur **Scharade WebApp** – einer Plattform, um Begriffe für das Theaterspiel Scharade zu erhalten. <br>
+🔗 [Zur Website](https://scharade.happyscharade.ch)
 
-## Tools
-Visual Studio Code
+---
 
-FileZilla
+## 📋 Inhaltsverzeichnis
 
-## Learnings
+- [🎯 Ziel der WebApp](#-ziel-der-webapp)
+- [✨ Features](#-features)
+- [🧰 Verwendete Tools](#-verwendete-tools)
+- [📚 Learnings](#-learnings)
+- [🐞 Herausforderungen](#-herausforderungen)
+- [🤖 Einsatz von KI](#-einsatz-von-ki)
+- [📎 Externe Quellen](#-externe-quellen)
+- [📄 Lizenz](#-lizenz)
 
-Durch ChatGPT 4.0o war es mir erst möglich, meine Website in diesem Semester zu erstellen. Sonst hätte ich JS und PHP und SQL selbst lernen müssen und nur knapp in dieser Zeit verstehen.
-Es ist jedoch anzumerken, man muss ständig seinen Code mitgeben. <br>
-Das Tool werde ich in Zukunft weiterhin nutzen. Es ist einfach beeindruckend, wie gut es Code versteht. Aber es ergibt ja Sinn. Roboter spricht mit Roboter.
+---
 
-## Pains
-- Ständig den Code mitgeben zu müssen. Besonders wenn man mehrere Dateien mitgeben muss.
-- nicht genaues zeigen, wo ich den code snippet einfügen muss.
+## 🎯 Ziel der WebApp
 
+> Scharade ist ein Spiel, bei dem Begriffe pantomimisch dargestellt und erraten werden.  
+> Damit das auch spontan, ortsunabhängig und ohne Vorbereitung möglich ist, habe ich eine WebApp entwickelt, in der man Begriffe speichern, abrufen und direkt verwenden kann.
 
-## KI-Einsatz
-ChatGPT 4.0o kam zu grosser Hilfe. Hier ist ein Beispielprompt: <br>
-""
+---
 
-Danach schrieb ich "Füge folgendes Feature ein: ..." und es hat schnell geschrieben, erklärt und es hat funktioniert. Viel schneller als ich es allein machen könnte. Es hilft gezielt das Feature einzubauen oder das Problem zu lösen, anstatt dass ich online nach Tutorials suche.
-Aber dennoch, kann es nicht alles lösen.
+## ✨ Features
 
-## Externe Quellen
-###
+- ✅ Registrierung und Login
+- ➕ Begriffe zur Datenbank hinzufügen
+- 🗂️ Kategorien auswählen:
+  - Eine oder mehr
+  - Keine Auswahl = alle Kategorien
+- 🔀 Zufällige Begriffe abrufen
+- 🎮 Spielmodi:
+  - Freies Spiel
+  - Weitere geplant (z. B. Zeitmodus, Teams, Extras)
+
+---
+
+## 🧰 Verwendete Tools
+
+- **Visual Studio Code** – Code Editor  
+- **FileZilla** – FTP-Client  
+- **PHP** – Backend  
+- **MySQL** – Datenbank  
+- **JavaScript** – Frontend-Logik  
+- **HTML/CSS** – Struktur & Design  
+
+---
+
+## 📚 Learnings
+
+- JavaScript, PHP und SQL im Zusammenspiel zu nutzen, war ein grosser Lernschritt.
+- Ich habe durch KI gelernt, wie man API-Endpunkte erstellt und Daten sicher verarbeitet.
+- Die Organisation von Begriffen über Kategorien hat mein Verständnis für Datenbankstrukturen vertieft und was man darauf achten muss.
+
+---
+
+## 🐞 Herausforderungen
+
+- 🔁 Ständiges Kopieren vom Code in ChatGPT, besonders bei mehreren Dateien
+- korrekte Pfade bei so vielen Dateien und Ordner
+- updaten von JS, PHP auf früher erstellten Dateien, nochmal ausprobieren
+- localstorage korrekt funktionieren
+- Bugtesting, Kontrolle
+
+---
+
+## 🤖 Einsatz von KI
+
+**ChatGPT 4.0o** war ein zentrales Werkzeug bei der Entwicklung.
+
+**Beispielprompt:**  
+> „Schreibe eine PHP-Funktion, die einen neuen Begriff in die Datenbank einträgt. Dabei soll geprüft werden, ob alle Felder ausgefüllt sind.“
+
+**Genutzte Funktionen:**
+
+- PHP- und SQL-Skripte schreiben
+- Fehler analysieren und beheben
+- Features schrittweise umsetzen
+- Konzepte und Code erklären lassen
+
+Trotz KI war eigenes Verständnis entscheidend – nicht alles funktioniert auf Anhieb.
+
+---
+
+## 📎 Externe Quellen
+
+- [Markdown Guide](https://www.markdownguide.org/)
+- [MDN Web Docs – JavaScript](https://developer.mozilla.org/de/docs/Web/JavaScript)
+- [PHP Dokumentation](https://www.php.net/docs.php)
+- [MySQL Handbuch](https://dev.mysql.com/doc/)
+- [Semantic UI Dokumentation](https://semantic-ui.com/introduction/getting-started.html)
+
+---
+
+## 📄 Lizenz
+
+Dieses Projekt steht unter der [MIT Lizenz](https://opensource.org/licenses/MIT).  
+Die Nutzung ist kostenlos für private und nicht-kommerzielle Zwecke.
