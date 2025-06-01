@@ -1,5 +1,4 @@
-// Dropdown-Funktionalität
-  // Funktion zum Öffnen und Schliessen des Dropdowns
+// Funktion zum Öffnen und Schliessen des Dropdowns
 function toggleDropdown() {
   const menu = document.querySelector('.dropdown-menu');
   menu.classList.toggle('hidden');

@@ -22,14 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         kategorienContainer.appendChild(label);
       });
 
-      // document.querySelectorAll('input[name="kategorie"]').forEach((radio) => {
-      //   radio.addEventListener('change', (event) => {
-      //     const selectedLabel = kategorien.find(k => k.ID_Kategorie == event.target.value).Kategorie_Name;
-      //     document.getElementById('dropdown-label').textContent = selectedLabel;
-      //     kategorienContainer.classList.add('hidden');
-      //   });
-      // });
-
+      // Event Listener für Auswahl
       document.querySelectorAll('input[name="kategorie"]').forEach((radio) => {
         radio.addEventListener('change', (event) => {
           const selectedId = event.target.value;
@@ -39,14 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
           document.getElementById('dropdown-label').textContent = selectedLabel;
           kategorienContainer.classList.add('hidden');
 
-          // In localStorage speichern
-          localStorage.setItem('ausgewaehlteKategorieID', selectedId);
-          localStorage.setItem('ausgewaehlteKategorieName', selectedLabel);
-          console.log('Kategorie gespeichert:', selectedId, selectedLabel); // Debug-Ausgabe
+          // In localStorage speichern (einheitlicher Key)
+          localStorage.setItem('selectedKategorie', selectedId);
+          localStorage.setItem('selectedKategorieName', selectedLabel);
+          console.log('Kategorie gespeichert:', selectedId, selectedLabel);
         });
       });
-    })
 
+      // Label mit gespeicherter Kategorie aktualisieren
+      const gespeicherteKategorieId = localStorage.getItem('selectedKategorie');
+      if (gespeicherteKategorieId) {
+        const gespeicherteKategorie = kategorien.find(k => k.ID_Kategorie == gespeicherteKategorieId);
+        if (gespeicherteKategorie) {
+          document.getElementById('dropdown-label').textContent = gespeicherteKategorie.Kategorie_Name;
+
+          // Radiobutton der gespeicherten Kategorie vorab aktivieren
+          const radio = document.querySelector(`input[name="kategorie"][value="${gespeicherteKategorieId}"]`);
+          if (radio) radio.checked = true;
+        }
+      }
+    })
     .catch(err => {
       kategorienContainer.innerHTML = '<p>Fehler beim Laden der Kategorien</p>';
       console.error(err);
