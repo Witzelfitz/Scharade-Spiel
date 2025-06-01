@@ -18,39 +18,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
       kategorien.forEach(kategorie => {
         const label = document.createElement('label');
-        label.innerHTML = `<input type="radio" name="kategorie" value="${kategorie.ID_Kategorie}"> ${kategorie.Kategorie_Name}`;
+        label.innerHTML = `
+          <input type="checkbox" name="kategorie" value="${kategorie.ID_Kategorie}">
+          ${kategorie.Kategorie_Name}
+        `;
         kategorienContainer.appendChild(label);
       });
 
-      // Event Listener für Auswahl
-      document.querySelectorAll('input[name="kategorie"]').forEach((radio) => {
-        radio.addEventListener('change', (event) => {
-          const selectedId = event.target.value;
-          const selectedLabel = kategorien.find(k => k.ID_Kategorie == selectedId).Kategorie_Name;
-
-          // UI aktualisieren
-          document.getElementById('dropdown-label').textContent = selectedLabel;
-          kategorienContainer.classList.add('hidden');
-
-          // In localStorage speichern (einheitlicher Key)
-          localStorage.setItem('selectedKategorie', selectedId);
-          localStorage.setItem('selectedKategorieName', selectedLabel);
-          console.log('Kategorie gespeichert:', selectedId, selectedLabel);
+      // Gespeicherte Auswahl laden
+      const gespeicherteKategorien = JSON.parse(localStorage.getItem('selectedKategorien') || '[]');
+      if (gespeicherteKategorien.length > 0) {
+        gespeicherteKategorien.forEach(id => {
+          const checkbox = document.querySelector(`input[name="kategorie"][value="${id}"]`);
+          if (checkbox) checkbox.checked = true;
         });
-      });
 
-      // Label mit gespeicherter Kategorie aktualisieren
-      const gespeicherteKategorieId = localStorage.getItem('selectedKategorie');
-      if (gespeicherteKategorieId) {
-        const gespeicherteKategorie = kategorien.find(k => k.ID_Kategorie == gespeicherteKategorieId);
-        if (gespeicherteKategorie) {
-          document.getElementById('dropdown-label').textContent = gespeicherteKategorie.Kategorie_Name;
-
-          // Radiobutton der gespeicherten Kategorie vorab aktivieren
-          const radio = document.querySelector(`input[name="kategorie"][value="${gespeicherteKategorieId}"]`);
-          if (radio) radio.checked = true;
-        }
+        // Label aktualisieren
+        const namen = kategorien
+          .filter(k => gespeicherteKategorien.includes(k.ID_Kategorie.toString()))
+          .map(k => k.Kategorie_Name);
+        document.getElementById('dropdown-label').textContent = namen.join(', ');
       }
+
+      // Listener für Checkbox-Änderung ist in menuDropDown.js
     })
     .catch(err => {
       kategorienContainer.innerHTML = '<p>Fehler beim Laden der Kategorien</p>';

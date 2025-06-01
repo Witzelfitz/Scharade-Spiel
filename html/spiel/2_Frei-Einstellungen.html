@@ -14,15 +14,11 @@
 
     <!-- header -->
     <header class="app-header">
-      <!-- Logo -->
       <a href="../../index.html"></a><img src="/0_media/bilder/Logo Happy Scharade V1 white.svg" alt="Logo von Happy Scharade" class="logo" />
-
-      <!-- Login -->
       <nav class="user-nav">
         <div class="user-info hidden">
           Angemeldet als: <span id="username-display"></span>
         </div>
-
         <a href="/html/login.html"><button class="login-btn" title="Login">Login</button></a>
         <button id="logoutBtn" class="logout-btn hidden" title="Logout">Logout</button>
       </nav>
@@ -32,33 +28,33 @@
     <main class="main-section">
       <div class="main-content-wrapper">
 
-      <section class="top-section">
-        <h1 class="title">Einstellungen</h1>
-        <p class="description">Wähle aus der Liste deine gewünschten Kategorien für die angezeigten Begriffe.</p>
-      </section>
+        <section class="top-section">
+          <h1 class="title">Einstellungen</h1>
+          <p class="description">Wähle aus der Liste deine gewünschten Kategorien für die angezeigten Begriffe.</p>
+        </section>
 
-      <section class="middle-section">
-        <!-- Hier können Informationen, Spielstatus oder Anleitungen stehen -->
-      </section>
+        <section class="middle-section">
+          <!-- Hier können Informationen, Spielstatus oder Anleitungen stehen -->
+        </section>
 
-      <section class="bottom-section">
-        <!-- Buttons und Eingabefelder -->
-        <!-- Dropdown-Button -->
-        <div class="dropdown-wrapper">
-          <button class="btn-dropdown" onclick="toggleDropdown()">
-            <span id="dropdown-label">Auswahl öffnen</span>
-            <span class="dropdown-icon">▾</span>
-          </button>
+        <section class="bottom-section">
+          <!-- Dropdown-Button -->
+          <div class="dropdown-wrapper">
+            <button class="btn-dropdown" onclick="toggleDropdown()">
+              <span id="dropdown-label">Auswahl öffnen</span>
+              <span class="dropdown-icon">▾</span>
+            </button>
 
-          <div class="dropdown-menu hidden" id="kategorienContainer">
-            <!-- Wird von ladeKategorien.js befüllt -->
+            <div class="dropdown-menu hidden" id="kategorienContainer">
+              <!-- Kategorien werden per JS geladen -->
+            </div>
           </div>
-        </div>
 
-        <div class="slot">
-          <a href="/html/spiel/Begriff-Frei.html"><button class="btn-confirm" title="Eingabe bestätigen">Bestätigen</button></a>
-        </div>
+          <div class="slot">
+            <button class="btn-confirm" title="Eingabe bestätigen" id="btnBestätigen">Bestätigen</button>
+          </div>
 
+        </section>
       </div>
     </main>
 
@@ -69,9 +65,34 @@
 
   </div>
 
-  <script></script>
   <script src="/js/menuDropDown.js"></script>
   <script src="/js/ladeKategorien.js"></script>
+
+  <script>
+    // Weiterleitung beim Bestätigen mit Auswahl speichern
+    document.getElementById('btnBestätigen').addEventListener('click', () => {
+      const checked = Array.from(document.querySelectorAll('input[name="kategorie"]:checked'))
+                           .map(cb => cb.value);
+
+      localStorage.setItem('selectedKategorien', JSON.stringify(checked));
+
+      // Weiterleitung zum Spiel mit den ausgewählten Kategorien
+      window.location.href = "/html/spiel/Begriff-Frei.html";
+    });
+
+    // Optional: Vorauswahl laden, wenn vorhanden
+    window.addEventListener('DOMContentLoaded', () => {
+      const gespeicherte = JSON.parse(localStorage.getItem('selectedKategorien') || '[]');
+      if (gespeicherte.length > 0) {
+        document.querySelectorAll('input[name="kategorie"]').forEach(cb => {
+          cb.checked = gespeicherte.includes(cb.value);
+        });
+        // Label anpassen
+        const labelText = gespeicherte.length > 0 ? gespeicherte.join(', ') : 'Auswahl öffnen';
+        document.getElementById('dropdown-label').textContent = labelText;
+      }
+    });
+  </script>
 
 </body>
 </html>

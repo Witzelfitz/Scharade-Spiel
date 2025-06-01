@@ -13,10 +13,12 @@ document.addEventListener('click', function (e) {
 });
 
 // Auswahl übernehmen und Button-Text ändern
-document.querySelectorAll('input[name="kategorie"]').forEach((radio) => {
-  radio.addEventListener('change', (event) => {
-    const selected = event.target.value;
-    document.getElementById('dropdown-label').textContent = selected;
-    document.querySelector('.dropdown-menu').classList.add('hidden'); // Dropdown schliessen
-  });
+document.addEventListener('change', (event) => {
+  if (event.target.name === 'kategorie') {
+    const checked = Array.from(document.querySelectorAll('input[name="kategorie"]:checked'))
+                         .map(cb => cb.nextSibling.textContent.trim() || cb.value);
+
+    const label = checked.length > 0 ? checked.join(', ') : 'Auswahl öffnen';
+    document.getElementById('dropdown-label').textContent = label;
+  }
 });

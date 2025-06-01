@@ -3,34 +3,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.querySelector('.btn-confirm');
   let begriffQueue = [];
   let cooldown = false;
-  let keineBegriffeMehr = false; // Flag, ob keine Begriffe mehr verfügbar sind
+  let keineBegriffeMehr = false;
 
-  const kategorieId = localStorage.getItem('selectedKategorie') || '';
+  // Mehrere Kategorien aus localStorage
+  const kategorienArray = JSON.parse(localStorage.getItem('selectedKategorien') || '[]');
+  const kategorieParam = kategorienArray.length > 0 ? kategorienArray.join(',') : '';
 
   async function ladeBegriffe() {
-    if (keineBegriffeMehr) {
-      // Keine Begriffe mehr, keine neuen Requests
-      return;
-    }
+    if (keineBegriffeMehr) return;
 
     try {
-      const res = await fetch(`/api/begriff/begriffZufall.php?kategorie=${kategorieId}&anzahl=7`);
+      const url = `/api/begriff/begriffZufall.php?kategorie=${encodeURIComponent(kategorieParam)}&anzahl=7`;
+      const res = await fetch(url);
       if (!res.ok) throw new Error('Fehler beim Laden der Begriffe');
       const data = await res.json();
 
       if (data.status !== 'success') throw new Error('Serverfehler beim Laden der Begriffe');
 
       if (data.begriffe.length === 0) {
-        // Keine Begriffe gefunden
-        title.textContent = 'Keine Begriffe in dieser Kategorie vorhanden.';
-        keineBegriffeMehr = true; // Flag setzen, keine weiteren Anfragen mehr
-        nextBtn.disabled = true;   // Button deaktivieren
+        title.textContent = 'Keine Begriffe in den gewählten Kategorien vorhanden.';
+        keineBegriffeMehr = true;
+        nextBtn.disabled = true;
         return;
       }
 
       begriffQueue.push(...data.begriffe);
 
-      // Wenn gerade noch ein Status-Text da steht, dann überschreiben wir ihn
       if (title.textContent.includes('Lade') || title.textContent === '' || title.textContent === 'Begriff') {
         zeigeNaechstenBegriff();
       }
@@ -55,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const begriff = begriffQueue.shift();
     title.textContent = begriff.Begriff_Name;
 
-    // Nachladen wenn nur noch wenige übrig sind
     if (begriffQueue.length < 3 && !keineBegriffeMehr) ladeBegriffe();
   }
 
@@ -70,9 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       cooldown = false;
       nextBtn.disabled = false;
-    }, 5000); // 5 Sekunden Cooldown
+    }, 5000);
   });
 
-  // Erste Begriffe laden
   ladeBegriffe();
 });

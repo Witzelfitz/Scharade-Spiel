@@ -5,32 +5,41 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 header('Content-Type: application/json');
-require_once '../../system/configBegriff.php'; // Verbindung zur Datenbank
+require_once '../../system/configBegriff.php';
 
-// Parameter einlesen
 $anzahl = isset($_GET['anzahl']) ? intval($_GET['anzahl']) : 7;
-$kategorie = isset($_GET['kategorie']) ? intval($_GET['kategorie']) : null;
+$kategorien = isset($_GET['kategorie']) ? $_GET['kategorie'] : null;
 
-// Sicherheitsprüfung
 if ($anzahl <= 0 || $anzahl > 100) {
   echo json_encode(["status" => "error", "message" => "Ungültige Anzahl Begriffe"]);
   exit;
 }
 
 try {
-  if ($kategorie !== null && $kategorie > 0) {
-    $sql = "SELECT Begriff_Name FROM Begriff WHERE Status = 'aktiv' AND ID_Kategorie = ? ORDER BY RAND() LIMIT ?";
+  if ($kategorien) {
+    $kategorienArray = array_filter(array_map('intval', explode(',', $kategorien)), fn($v) => $v > 0);
+
+    if (count($kategorienArray) === 0) {
+      echo json_encode(["status" => "error", "message" => "Ungültige Kategorieauswahl"]);
+      exit;
+    }
+
+    $placeholders = implode(',', array_fill(0, count($kategorienArray), '?'));
+    $sql = "SELECT Begriff_Name FROM Begriff WHERE Status = 'aktiv' AND ID_Kategorie IN ($placeholders) ORDER BY RAND() LIMIT ?";
+
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ii", $kategorie, $anzahl);
+
+    $types = str_repeat('i', count($kategorienArray)) . 'i';
+    $params = array_merge($kategorienArray, [$anzahl]);
+
+    // Bind-Parameter dynamisch
+    $stmt->bind_param($types, ...$params);
+
   } else {
     $sql = "SELECT Begriff_Name FROM Begriff WHERE Status = 'aktiv' ORDER BY RAND() LIMIT ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $anzahl);
   }
-
-  // Debug-Ausgaben (bei Problemen entkommentieren)
-  // error_log("SQL: " . $sql);
-  // error_log("Kategorie: " . $kategorie . ", Anzahl: " . $anzahl);
 
   $stmt->execute();
   $result = $stmt->get_result();
@@ -45,4 +54,3 @@ try {
 } catch (Exception $e) {
   echo json_encode(["status" => "error", "message" => "Serverfehler: " . $e->getMessage()]);
 }
-?>
