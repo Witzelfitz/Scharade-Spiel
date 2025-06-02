@@ -64,11 +64,20 @@ Willkommen zur **Scharade WebApp** – einer Plattform, um Begriffe für das The
 
 ## 🐞 Herausforderungen
 
-- 🔁 Ständiges Kopieren vom Code in ChatGPT, besonders bei mehreren Dateien
-- korrekte Pfade bei so vielen Dateien und Ordner
-- updaten von JS, PHP auf früher erstellten Dateien, nochmal ausprobieren
-- localstorage korrekt funktionieren
-- Bugtesting, Kontrolle
+- 🔁 **Wiederholtes Einfügen von Code in ChatGPT**  
+  Besonders bei vielen zusammenhängenden Dateien wurde es mühsam, alle relevanten Abschnitte bereitzustellen.
+
+- 📂 **Komplexe Dateistruktur & Pfadangaben**  
+  Das korrekte Verlinken von Dateien und Ressourcen wurde bei wachsender Projektstruktur zunehmend fehleranfällig.
+
+- ♻️ **Änderungen in bestehenden JS- und PHP-Dateien**  
+  Anpassungen an früher geschriebenem Code führten oft zu unerwarteten Seiteneffekten und erforderten erneutes Testen.
+
+- 🗃️ **Probleme mit LocalStorage**  
+  Beim Zwischenspeichern ausgewählter Kategorien wurden Daten teils nicht korrekt übernommen oder beim Laden ignoriert.
+
+- 🐞 **Intensives Bugtesting erforderlich**  
+  Häufige Kontrollläufe waren notwendig, um Fehler in Logik und UI zu entdecken und zu beheben.
 
 ---
 
