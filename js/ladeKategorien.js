@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const kategorienContainer = document.getElementById('kategorienContainer');
-  const typ = kategorienContainer.dataset.typ || 'checkbox'; // Standard: checkbox
+  const typ = kategorienContainer.dataset.typ || 'checkbox'; // Standardtyp: Checkbox
 
+  // Kategorien vom Server abrufen
   fetch('/api/kategorien')
     .then(res => {
       if (!res.ok) throw new Error('Fehler beim Abrufen der Kategorien');
@@ -10,13 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(kategorien => {
       kategorienContainer.innerHTML = '';
 
+      // Falls keine Kategorien zurückgegeben werden
       if (kategorien.length === 0) {
         kategorienContainer.innerHTML = '<p>Keine Kategorien verfügbar</p>';
         return;
       }
 
+      // Sortierung nach ID
       kategorien.sort((a, b) => a.ID_Kategorie - b.ID_Kategorie);
 
+      // Kategorien als Checkboxen oder Radios darstellen
       kategorien.forEach(kategorie => {
         const label = document.createElement('label');
         label.innerHTML = `
@@ -26,23 +30,32 @@ document.addEventListener('DOMContentLoaded', () => {
         kategorienContainer.appendChild(label);
       });
 
+      // Nur bei Checkboxen: Vorauswahl prüfen
       if (typ === 'checkbox') {
-        // Nur bei Checkboxen: Auswahl wiederherstellen und Label aktualisieren
-        const gespeicherteKategorien = JSON.parse(localStorage.getItem('selectedKategorien') || '[]');
-        if (gespeicherteKategorien.length > 0) {
+        const gespeicherteKategorienRaw = localStorage.getItem('selectedKategorien');
+
+        if (gespeicherteKategorienRaw) {
+          const gespeicherteKategorien = JSON.parse(gespeicherteKategorienRaw);
+
+          // Checkboxen als "checked" markieren
           gespeicherteKategorien.forEach(id => {
             const checkbox = document.querySelector(`input[name="kategorie"][value="${id}"]`);
             if (checkbox) checkbox.checked = true;
           });
 
+          // Namen für das Dropdown-Label setzen
           const namen = kategorien
             .filter(k => gespeicherteKategorien.includes(k.ID_Kategorie.toString()))
             .map(k => k.Kategorie_Name);
+
           document.getElementById('dropdown-label').textContent = namen.join(', ');
+        } else {
+          // Keine Vorauswahl → Standardtext
+          document.getElementById('dropdown-label').textContent = 'Auswahl öffnen';
         }
       }
 
-      // Listener für Auswahl-Änderungen ist in menuDropDown.js
+      // Event-Listener zur Dropdown-Interaktion ist separat in menuDropDown.js
     })
     .catch(err => {
       kategorienContainer.innerHTML = '<p>Fehler beim Laden der Kategorien</p>';
