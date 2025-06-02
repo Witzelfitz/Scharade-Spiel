@@ -2,8 +2,7 @@
 // api/begriff-eintragen.php
 
 header('Content-Type: application/json');
-require_once 'config/db.php'; // stellt sicher, dass $pdo vorhanden ist
-// session_start(); // nur wenn du Sessions einsetzen willst
+require_once 'config/db.php';
 
 try {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -21,37 +20,44 @@ try {
     $idKategorie = intval($input['ID_Kategorie']);
     $idUser = intval($input['ID_User']);
 
-    // Begrenzung: max. 100 Zeichen
-    if (mb_strlen($begriff) > 100) {
+    // Länge prüfen
+    $laenge = mb_strlen($begriff);
+    if ($laenge < 4) {
+        http_response_code(400);
+        echo json_encode(['message' => 'Begriff ist zu kurz (mind. 4 Zeichen).']);
+        exit;
+    }
+    if ($laenge > 100) {
         http_response_code(400);
         echo json_encode(['message' => 'Begriff ist zu lang (max. 100 Zeichen).']);
         exit;
     }
 
-    // Zeichensatz filtern (nur Buchstaben, Zahlen, Satzzeichen erlaubt)
-    if (!preg_match('/^[\p{L}\p{N}\s\-\?!.,:()]{1,100}$/u', $begriff)) {
+    // Zeichenprüfung: erlaubt sind Buchstaben, Ziffern, Leerzeichen, -, (), !?,.: 
+    if (!preg_match('/^[\p{L}\p{N}\s\-()!?.,:]+$/u', $begriff)) {
         http_response_code(400);
         echo json_encode(['message' => 'Ungültige Zeichen im Begriff.']);
         exit;
     }
 
-    // ID prüfen (nicht negativ oder 0)
+    // Blacklist-Prüfung
+    $stmtBlacklist = $pdo->query("SELECT Wort FROM Blacklist");
+    $blacklist = $stmtBlacklist->fetchAll(PDO::FETCH_COLUMN);
+
+    foreach ($blacklist as $verboten) {
+        if (stripos($begriff, $verboten) !== false) {
+            http_response_code(400);
+            echo json_encode(['message' => 'Begriff enthält unzulässige Inhalte.']);
+            exit;
+        }
+    }
+
+    // Kategorie und User-ID prüfen
     if ($idKategorie <= 0 || $idUser <= 0) {
         http_response_code(400);
         echo json_encode(['message' => 'Ungültige Kategorie- oder Benutzer-ID.']);
         exit;
     }
-
-    // Optional: Existiert die Kategorie überhaupt?
-    /*
-    $stmtCheck = $pdo->prepare('SELECT COUNT(*) FROM Kategorie WHERE ID_Kategorie = ?');
-    $stmtCheck->execute([$idKategorie]);
-    if ($stmtCheck->fetchColumn() == 0) {
-        http_response_code(400);
-        echo json_encode(['message' => 'Kategorie existiert nicht.']);
-        exit;
-    }
-    */
 
     // Begriff speichern
     $stmt = $pdo->prepare(
@@ -62,12 +68,11 @@ try {
     echo json_encode(['message' => 'Begriff erfolgreich gespeichert.']);
 
 } catch (PDOException $e) {
-    // Bei Dubletten: 23000 (Integrity constraint violation)
     if ($e->getCode() === '23000') {
         http_response_code(409);
         echo json_encode(['message' => 'Begriff existiert bereits.']);
     } else {
-        error_log('DB-Fehler: ' . $e->getMessage()); // nur Serverlog
+        error_log('DB-Fehler: ' . $e->getMessage());
         http_response_code(500);
         echo json_encode(['message' => 'Serverfehler.']);
     }
