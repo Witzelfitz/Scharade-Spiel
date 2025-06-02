@@ -36,7 +36,7 @@ Willkommen zur **Scharade WebApp** – einer Plattform, um Begriffe für das The
 - 🗂️ Kategorien auswählen:
   - Eine oder mehr
   - Keine Auswahl = alle Kategorien
-- 🔀 Zufällige Begriffe abrufen
+- 🔀 Zufällige Begriffe abrufen (Autor wird auch angezeigt)
 - 🎮 Spielmodi:
   - Freies Spiel
   - Weitere geplant (z. B. Zeitmodus, Teams, Extras)

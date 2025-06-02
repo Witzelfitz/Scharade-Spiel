@@ -25,18 +25,27 @@ try {
     }
 
     $placeholders = implode(',', array_fill(0, count($kategorienArray), '?'));
-    $sql = "SELECT Begriff_Name FROM Begriff WHERE Status = 'aktiv' AND ID_Kategorie IN ($placeholders) ORDER BY RAND() LIMIT ?";
+    $sql = "
+      SELECT Begriff.Begriff_Name, users.username
+      FROM Begriff
+      JOIN users ON Begriff.ID_User = users.ID_User
+      WHERE Begriff.Status = 'aktiv' AND Begriff.ID_Kategorie IN ($placeholders)
+      ORDER BY RAND() LIMIT ?
+    ";
 
     $stmt = $conn->prepare($sql);
-
     $types = str_repeat('i', count($kategorienArray)) . 'i';
     $params = array_merge($kategorienArray, [$anzahl]);
-
-    // Bind-Parameter dynamisch
     $stmt->bind_param($types, ...$params);
 
   } else {
-    $sql = "SELECT Begriff_Name FROM Begriff WHERE Status = 'aktiv' ORDER BY RAND() LIMIT ?";
+    $sql = "
+      SELECT Begriff.Begriff_Name, users.username
+      FROM Begriff
+      JOIN users ON Begriff.ID_User = users.ID_User
+      WHERE Begriff.Status = 'aktiv'
+      ORDER BY RAND() LIMIT ?
+    ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $anzahl);
   }
@@ -46,7 +55,10 @@ try {
 
   $begriffe = [];
   while ($row = $result->fetch_assoc()) {
-    $begriffe[] = ['Begriff_Name' => $row['Begriff_Name']];
+    $begriffe[] = [
+      'Begriff_Name' => $row['Begriff_Name'],
+      'username' => $row['username']
+    ];
   }
 
   echo json_encode(["status" => "success", "begriffe" => $begriffe]);

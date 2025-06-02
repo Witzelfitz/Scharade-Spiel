@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const title = document.querySelector('.title');
+  const autorText = document.getElementById('autorText');
   const nextBtn = document.querySelector('.btn-confirm');
   let begriffQueue = [];
   let cooldown = false;
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const begriff = begriffQueue.shift();
     title.textContent = begriff.Begriff_Name;
+    autorText.textContent = `Autor: ${begriff.username || 'Unbekannt'}`;
 
     if (begriffQueue.length < 3 && !keineBegriffeMehr) ladeBegriffe();
   }
