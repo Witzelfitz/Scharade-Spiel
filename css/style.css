@@ -6,6 +6,8 @@
   --color-primary-bg2: #D6001A;
   --color-primary-text: #FAFAFA;
   --color-dark-text: #222;
+  --color-link-text: #a0ace6;
+  --color-link-text-hover: #a0ace6;
 
   --color-green: #559560;
   --color-blue: #4762EA;
@@ -37,7 +39,7 @@ body {
 }
 
 a {
-  color: var(--color-primary-text);
+  color: var(--color-link-text);
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -125,10 +127,12 @@ a:hover {
   text-align: center;
   font-size: 1rem;
   padding: 0.5rem;
-  background-color: #3a3a3a71;
+  border-radius: 0.5rem;
+  background-color: #290b0bac;
 }
 
-.description-list {
+.description-list,
+.info-article {
   text-align: left;
   margin: 0.2rem auto;
   max-width: 600px;
@@ -147,6 +151,7 @@ a:hover {
   color: #666;
   margin-top: 1rem;
 }
+
 
 /* Slot */
 .slot {
