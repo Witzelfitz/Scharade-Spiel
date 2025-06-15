@@ -1,0 +1,108 @@
+/* Basislayout für Datenschutzseite */
+.main-section {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #1f1f1f;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  color: #f0f0f0;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.main-section a {
+  color: #70c0ff;
+  text-decoration: underline;
+}
+
+.main-section a:hover {
+  color: #a3d4ff;
+  text-decoration: none;
+}
+
+/* Titel */
+.title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: #bbbbbb;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Abschnittsstruktur */
+section.middle-section article {
+  margin-bottom: 2.5rem;
+}
+
+article h2 {
+  font-size: 1.8rem;
+  margin: 2rem 0 1rem;
+  color: #ffffff;
+  border-bottom: 2px solid #444;
+  padding-bottom: 0.4rem;
+}
+
+article h3 {
+  font-size: 1.3rem;
+  margin-top: 1.8rem;
+  color: #dddddd;
+}
+
+article h4 {
+  font-size: 1.15rem;
+  margin-top: 1.2rem;
+  font-weight: 600;
+  color: #cccccc;
+}
+
+/* Listen */
+article ul {
+  padding-left: 1.5rem;
+  list-style-type: disc;
+  margin-top: 0.5rem;
+}
+
+article li {
+  margin-bottom: 0.4rem;
+}
+
+/* Adresselement */
+address {
+  font-style: normal;
+  background-color: #2a2a2a;
+  padding: 1rem;
+  border-left: 4px solid #70c0ff;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Responsive Verhalten */
+@media (max-width: 600px) {
+  .main-section {
+    padding: 1.2rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  article h2 {
+    font-size: 1.5rem;
+  }
+
+  article h3 {
+    font-size: 1.15rem;
+  }
+
+  article h4 {
+    font-size: 1rem;
+  }
+}
