@@ -4,6 +4,12 @@
 
 # 🎭 Scharade WebApp
 
+## Lokales Setup (SQLite)
+1) Stelle sicher, dass PHP mit SQLite aktiviert ist (PDO SQLite).
+2) Starte lokal: `php -S localhost:8000`
+3) Öffne `http://localhost:8000`
+4) Beim ersten Start wird `system/scharade.sqlite` automatisch erstellt.
+
 Willkommen zur **Scharade WebApp** – einer Plattform, um Begriffe für das Theaterspiel Scharade zu erhalten. <br>
 🔗 [Zur Website](https://scharade.happyscharade.ch)
 
@@ -48,7 +54,7 @@ Willkommen zur **Scharade WebApp** – einer Plattform, um Begriffe für das The
 - **Visual Studio Code** – Code Editor  
 - **FileZilla** – FTP-Client  
 - **PHP** – Backend  
-- **MySQL** – Datenbank  
+- **SQLite** – Datenbank (lokal)  
 - **JavaScript** – Frontend-Logik  
 - **HTML/CSS** – Struktur & Design  
 
@@ -104,7 +110,7 @@ Trotz KI war eigenes Verständnis entscheidend – nicht alles funktioniert auf 
 - [Markdown Guide](https://www.markdownguide.org/)
 - [MDN Web Docs – JavaScript](https://developer.mozilla.org/de/docs/Web/JavaScript)
 - [PHP Dokumentation](https://www.php.net/docs.php)
-- [MySQL Handbuch](https://dev.mysql.com/doc/)
+- [SQLite Doku](https://www.sqlite.org/docs.html)
 - [Semantic UI Dokumentation](https://semantic-ui.com/introduction/getting-started.html)
 
 ---

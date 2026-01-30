@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 header('Content-Type: application/json');
-require_once '../../system/configBegriff.php';
+require_once '../../system/db.php';
 
 $anzahl = isset($_GET['anzahl']) ? intval($_GET['anzahl']) : 7;
 $kategorien = isset($_GET['kategorie']) ? $_GET['kategorie'] : null;
@@ -30,13 +30,12 @@ try {
       FROM Begriff
       JOIN users ON Begriff.ID_User = users.ID_User
       WHERE Begriff.Status = 'aktiv' AND Begriff.ID_Kategorie IN ($placeholders)
-      ORDER BY RAND() LIMIT ?
+      ORDER BY RANDOM() LIMIT ?
     ";
 
-    $stmt = $conn->prepare($sql);
-    $types = str_repeat('i', count($kategorienArray)) . 'i';
+    $stmt = $pdo->prepare($sql);
     $params = array_merge($kategorienArray, [$anzahl]);
-    $stmt->bind_param($types, ...$params);
+    $stmt->execute($params);
 
   } else {
     $sql = "
@@ -44,22 +43,13 @@ try {
       FROM Begriff
       JOIN users ON Begriff.ID_User = users.ID_User
       WHERE Begriff.Status = 'aktiv'
-      ORDER BY RAND() LIMIT ?
+      ORDER BY RANDOM() LIMIT ?
     ";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $anzahl);
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$anzahl]);
   }
 
-  $stmt->execute();
-  $result = $stmt->get_result();
-
-  $begriffe = [];
-  while ($row = $result->fetch_assoc()) {
-    $begriffe[] = [
-      'Begriff_Name' => $row['Begriff_Name'],
-      'username' => $row['username']
-    ];
-  }
+  $begriffe = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   echo json_encode(["status" => "success", "begriffe" => $begriffe]);
 

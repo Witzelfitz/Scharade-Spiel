@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^kategorien$ /api/kategorien.php [L]

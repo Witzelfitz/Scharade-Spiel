@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const typ = kategorienContainer.dataset.typ || 'checkbox'; // Standardtyp: Checkbox
 
   // Kategorien vom Server abrufen
-  fetch('/api/kategorien')
+  fetch('/api/kategorien.php')
     .then(res => {
       if (!res.ok) throw new Error('Fehler beim Abrufen der Kategorien');
       return res.json();

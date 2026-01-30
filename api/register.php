@@ -5,7 +5,7 @@ session_start();
 
 header('Content-Type: application/json');
 
-require_once '../system/config.php';
+require_once '../system/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
