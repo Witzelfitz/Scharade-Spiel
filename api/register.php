@@ -18,11 +18,11 @@ $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
 if (strpos($contentType, 'application/json') !== false) {
     $input = json_decode(file_get_contents('php://input'), true);
     $username = trim($input['username'] ?? '');
-    $email    = trim($input['email'] ?? '');
+    $email    = strtolower(trim($input['email'] ?? ''));
     $password = trim($input['password'] ?? '');
 } else {
     $username = trim($_POST['username'] ?? '');
-    $email    = trim($_POST['email'] ?? '');
+    $email    = strtolower(trim($_POST['email'] ?? ''));
     $password = trim($_POST['password'] ?? '');
 }
 
@@ -58,13 +58,13 @@ if (strlen($password) < 8 || !preg_match('/[\W_]/', $password)) {
 }
 
 try {
-    // Doppelte E-Mail prüfen
-    $stmt = $pdo->prepare("SELECT Id_User FROM users WHERE email = :email");
-    $stmt->execute([':email' => $email]);
+    // Doppelte E-Mail oder Benutzername prüfen
+    $stmt = $pdo->prepare("SELECT Id_User FROM users WHERE email = :email OR username = :username");
+    $stmt->execute([':email' => $email, ':username' => $username]);
 
     if ($stmt->fetch()) {
         http_response_code(409);
-        echo json_encode(["status" => "error", "message" => "E-Mail ist bereits registriert."]);
+        echo json_encode(["status" => "error", "message" => "E-Mail oder Benutzername ist bereits registriert."]);
         exit;
     }
 

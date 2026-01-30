@@ -11,16 +11,16 @@ document
       alert("Bitte fülle alle Felder aus.");
       return;
     }
-    if (password.length < 6) {
-      alert("Das Passwort muss mindestens 6 Zeichen lang sein.");
+    if (password.length < 8 || !/[\W_]/.test(password)) {
+      alert("Passwort muss mindestens 8 Zeichen lang sein und mindestens 1 Sonderzeichen enthalten.");
       return;
     }
     
     try {
       const response = await fetch("../api/register.php", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ username, email, password }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
       });
       const result = await response.json();
 

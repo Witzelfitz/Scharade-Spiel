@@ -14,12 +14,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// JSON-Body einlesen
-$input = json_decode(file_get_contents('php://input'), true);
-
-$username = trim($input['username'] ?? '');
-$email    = trim($input['email'] ?? '');
-$password = trim($input['password'] ?? '');
+// JSON- oder POST-Body einlesen
+$contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+if (strpos($contentType, 'application/json') !== false) {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $email    = strtolower(trim($input['email'] ?? ''));
+    $password = trim($input['password'] ?? '');
+} else {
+    $email    = strtolower(trim($_POST['email'] ?? ''));
+    $password = trim($_POST['password'] ?? '');
+}
 
 // Eingaben validieren
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -27,9 +31,9 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(["status" => "error", "message" => "Ungültige E-Mail-Adresse."]);
     exit;
 }
-if (!$username || !$password) {
+if (!$password) {
     http_response_code(400);
-    echo json_encode(["status" => "error", "message" => "Benutzername und Passwort sind erforderlich."]);
+    echo json_encode(["status" => "error", "message" => "Passwort ist erforderlich."]);
     exit;
 }
 
