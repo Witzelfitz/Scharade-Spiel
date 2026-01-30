@@ -39,7 +39,7 @@ if (!$password) {
 
 try {
     // Benutzer abfragen
-    $stmt = $pdo->prepare("SELECT Id_User, username, password FROM users WHERE email = :email");
+    $stmt = $pdo->prepare("SELECT ID_User, username, password FROM users WHERE email = :email");
     $stmt->execute([':email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
