@@ -361,6 +361,30 @@ a:hover {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.top-list {
+  margin-top: 1rem;
+  background: rgba(0,0,0,0.35);
+  padding: 0.6rem;
+  border-radius: 8px;
+}
+
+.top-list ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+.top-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.2rem 0;
+  font-size: 0.95rem;
+}
+
+.top-list .likes {
+  opacity: 0.8;
+}
 .login-btn:active,
 .logout-btn:active {
   filter: brightness(0.9);

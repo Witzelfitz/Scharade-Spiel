@@ -75,6 +75,26 @@ document.addEventListener('DOMContentLoaded', () => {
   begriffInput.addEventListener('input', updateUI);
   updateUI();
 
+  async function loadTop() {
+    const list = document.getElementById('topBegriffeList');
+    if (!list) return;
+    try {
+      const res = await fetch('/api/begriff/top.php?limit=8');
+      const data = await res.json();
+      if (data.status !== 'success') return;
+      list.innerHTML = '';
+      data.data.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${item.Begriff_Name}</span><span class="likes">❤️ ${item.likes}</span>`;
+        list.appendChild(li);
+      });
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  loadTop();
+
   submitBtn.addEventListener('click', async () => {
     const begriff = begriffInput.value.trim();
     const selectedKategorie = document.querySelector('input[name="kategorie"]:checked');
@@ -120,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('dropdown-label').textContent = 'Kategorie auswählen';
         document.querySelectorAll('input[name="kategorie"]').forEach(r => r.checked = false);
         updateUI();
+        loadTop();
       } else if (res.status === 409) {
         showFeedback(result.message || 'Begriff existiert bereits.', 'error');
       } else {

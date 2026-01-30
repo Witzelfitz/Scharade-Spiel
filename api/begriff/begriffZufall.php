@@ -26,7 +26,7 @@ try {
 
     $placeholders = implode(',', array_fill(0, count($kategorienArray), '?'));
     $sql = "
-      SELECT Begriff.Begriff_Name, users.username
+      SELECT Begriff.ID_Begriff, Begriff.Begriff_Name, users.username
       FROM Begriff
       JOIN users ON Begriff.ID_User = users.ID_User
       WHERE Begriff.Status = 'aktiv' AND Begriff.ID_Kategorie IN ($placeholders)
@@ -39,7 +39,7 @@ try {
 
   } else {
     $sql = "
-      SELECT Begriff.Begriff_Name, users.username
+      SELECT Begriff.ID_Begriff, Begriff.Begriff_Name, users.username
       FROM Begriff
       JOIN users ON Begriff.ID_User = users.ID_User
       WHERE Begriff.Status = 'aktiv'

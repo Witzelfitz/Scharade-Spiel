@@ -47,6 +47,17 @@ try {
         Wort TEXT NOT NULL UNIQUE
     )");
 
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS Likes (
+        ID_Like INTEGER PRIMARY KEY AUTOINCREMENT,
+        ID_Begriff INTEGER NOT NULL,
+        ID_User INTEGER NOT NULL,
+        Erstellungszeitpunkt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE (ID_Begriff, ID_User),
+        FOREIGN KEY (ID_Begriff) REFERENCES Begriff(ID_Begriff) ON DELETE CASCADE,
+        FOREIGN KEY (ID_User) REFERENCES users(ID_User) ON DELETE CASCADE
+    )");
+
     // Seed categories if empty
     $count = $pdo->query("SELECT COUNT(*) FROM Kategorie")->fetchColumn();
     if ((int)$count === 0) {

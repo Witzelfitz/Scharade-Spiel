@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scharade Spielauswahl by HappyLight</title>
+  <title>Scharade Zeitmodus</title>
   <link rel="icon" type="image/x-icon" href="/0_media/bilder/Logo Happy Scharade V1.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lexend:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -12,54 +12,47 @@
 <body>
   <div class="app-container">
 
-    <!-- header -->
     <header class="app-header">
-      <!-- Logo -->
-      <a href="../../index.html"><img src="/0_media/bilder/Logo Happy Scharade V1 white.svg" alt="Logo von Happy Scharade" class="logo"/></a>
-
-      <!-- Login -->
+      <a href="/index.html"><img src="/0_media/bilder/Logo Happy Scharade V1 white.svg" alt="Logo von Happy Scharade" class="logo"/></a>
       <nav class="user-nav">
         <div class="user-info hidden">
           Angemeldet als: <span id="username-display"></span>
         </div>
-
         <a href="/html/login.html"><button class="login-btn" title="Login">Login</button></a>
         <button id="logoutBtn" class="logout-btn hidden" title="Logout">Logout</button>
       </nav>
     </header>
 
-    <!-- main -->
     <main class="main-section">
       <div class="main-content-wrapper">
 
       <section class="top-section">
-        <h1 class="title">Auswahl Spielmodus</h1>
-        <p class="description">Es gibt verschiedene Arten Scharade zu spielen.</p>
+        <h1 class="title" id="begriffAnzeigen">Lade Begriff...</h1>
       </section>
 
       <section class="middle-section">
-        <!-- Hier können Informationen, Spielstatus oder Anleitungen stehen -->
-         <ol class="description-list">
-          <li>Frei: Spielt entspannt Begriffe druch.</li>
-          <li>Zeit: Spielt mit einem Timer.</li>
-          <li>Team: 2 Teams treten gegeneinander an. Das eine Team schreibt Begriffe für das andere Team auf. (3 Geräte werden benötigt)</li>
-          <li>Extras: weitere lustige Spielmodi</li>
-        </ol>
+        <div class="status-row">
+          <span id="roundTimer" class="pill">⏱ 60s</span>
+          <span id="score" class="pill">Punkte: 0</span>
+        </div>
+        <p id="statusMessage" class="hint"></p>
       </section>
 
       <section class="bottom-section">
-        <!-- Buttons und Eingabefelder -->
         <div class="slot">
-          <a href="/html/spiel/2_Frei-Einstellungen.html"><button class="btn-link" title="Spielmodus_Frei">Freies Spielen</button></a>
+          <button id="btnCorrect" class="btn-confirm">Richtig ✅</button>
         </div>
-
         <div class="slot">
-          <a href="/html/spiel/3_Zeit-Einstellungen.html"><button class="btn-link" title="Spielmodus_Zeit">Zeitangriff</button></a>
+          <button id="btnSkip" class="btn-link secondary">Überspringen</button>
         </div>
-
         <div class="slot">
-          <a href="/html/spiel/4_Team-Einstellungen.html"><button class="btn-link" title="Spielmodus_Team">Team Kampf</button></a>
+          <a href="/html/spiel/1_AuswahlSpielmodus.html"><button class="btn-link" title="Results">Beenden</button></a>
         </div>
+        <div class="slot">
+          <button id="btnLike" class="btn-link">Gefällt mir ❤️</button>
+        </div>
+        <p id="autorText" class="autor-text"></p>
+      </section>
 
       </div>
     </main>
@@ -71,7 +64,6 @@
 
   </div>
 
-  <script></script>
-
+  <script src="/js/begriffSpielZeit.js"></script>
 </body>
 </html>
