@@ -3,8 +3,25 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
+  const feedback = document.getElementById("loginFeedback");
+  const submitBtn = document.querySelector("#loginForm .btn-confirm");
+
+  function setFeedback(message, type = 'error') {
+    if (!feedback) return;
+    feedback.textContent = message;
+    feedback.className = type;
+    feedback.classList.remove('hidden');
+  }
+
+  if (!email || !password) {
+    setFeedback("Bitte E-Mail und Passwort eingeben.");
+    return;
+  }
 
   try {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Login…';
+
     const response = await fetch("../api/login.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -14,18 +31,20 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const result = await response.json();
 
     if (response.ok && result.status === "success") {
-      // ✅ Speichere Daten im localStorage
       localStorage.setItem("ID_User", result.ID_User);
       localStorage.setItem("username", result.username);
 
-      alert("Login erfolgreich!");
+      setFeedback("Login erfolgreich!", "success");
       window.location.href = "../html/begriffEintragen.html";
     } else {
-      alert(result.message || "Login fehlgeschlagen.");
+      setFeedback(result.message || "Login fehlgeschlagen.");
     }
 
   } catch (error) {
     console.error("Fehler beim Login:", error);
-    alert("Serverfehler – bitte später versuchen.");
+    setFeedback("Serverfehler – bitte später versuchen.");
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Login';
   }
 });

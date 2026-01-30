@@ -24,29 +24,4 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Fehler beim Session-Check:', err);
       window.location.href = 'login.html';
     });
-
-  function logout() {
-    fetch('../php/logout.php', {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(res => {
-        if (!res.ok) throw new Error('Netzwerkantwort nicht ok');
-        return res.json();
-      })
-      .then(data => {
-        if (data.status === 'success') {
-          window.location.href = '/html/login.html';
-        } else {
-          alert('Logout fehlgeschlagen.');
-        }
-      })
-      .catch((error) => {
-        console.error('Logout Fehler:', error);
-        alert('Logout fehlgeschlagen.');
-      });
-  }
-
-  if (logoutBtn) logoutBtn.addEventListener('click', logout);
 });

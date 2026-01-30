@@ -2,9 +2,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const title = document.querySelector('.title');
   const autorText = document.getElementById('autorText');
   const nextBtn = document.querySelector('.btn-confirm');
+  const playedCount = document.getElementById('playedCount');
+  const roundTimer = document.getElementById('roundTimer');
+  const statusMessage = document.getElementById('statusMessage');
+
   let begriffQueue = [];
   let cooldown = false;
   let keineBegriffeMehr = false;
+  let played = 0;
+  let timerInterval = null;
+  let timeLeft = 0;
+
+  const roundTime = parseInt(localStorage.getItem('roundTime') || '0', 10);
+
+  if (roundTime > 0 && roundTimer) {
+    timeLeft = roundTime;
+    roundTimer.classList.remove('hidden');
+    roundTimer.textContent = `⏱ ${timeLeft}s`;
+  }
 
   // Mehrere Kategorien aus localStorage
   const kategorienArray = JSON.parse(localStorage.getItem('selectedKategorien') || '[]');
@@ -42,6 +57,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function startTimer() {
+    if (roundTime <= 0) return;
+    clearInterval(timerInterval);
+    timeLeft = roundTime;
+    roundTimer.textContent = `⏱ ${timeLeft}s`;
+
+    timerInterval = setInterval(() => {
+      timeLeft -= 1;
+      roundTimer.textContent = `⏱ ${timeLeft}s`;
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        statusMessage.textContent = 'Zeit vorbei! Nächster Begriff…';
+        statusMessage.classList.remove('hidden');
+        setTimeout(() => {
+          statusMessage.textContent = '';
+          zeigeNaechstenBegriff();
+          startTimer();
+        }, 600);
+      }
+    }, 1000);
+  }
+
   function zeigeNaechstenBegriff() {
     if (begriffQueue.length === 0) {
       if (!keineBegriffeMehr) {
@@ -54,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const begriff = begriffQueue.shift();
     title.textContent = begriff.Begriff_Name;
     autorText.textContent = `Autor: ${begriff.username || 'Unbekannt'}`;
+    played += 1;
+    if (playedCount) playedCount.textContent = `Begriffe gespielt: ${played}`;
 
     if (begriffQueue.length < 3 && !keineBegriffeMehr) ladeBegriffe();
   }
@@ -63,17 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cooldown || keineBegriffeMehr) return;
 
     zeigeNaechstenBegriff();
+    startTimer();
+
+    if (roundTime > 0) return; // keine Cooldown im Timer-Modus
+
     cooldown = true;
     nextBtn.disabled = true;
-
-    nextBtn.classList.add('btn-cooldown'); // Stil anwenden
+    nextBtn.classList.add('btn-cooldown');
 
     setTimeout(() => {
       cooldown = false;
       nextBtn.disabled = false;
-      nextBtn.classList.remove('btn-cooldown'); // Stil zurücksetzen
-    }, 5000);
+      nextBtn.classList.remove('btn-cooldown');
+    }, 2000);
   });
 
   ladeBegriffe();
+  startTimer();
 });

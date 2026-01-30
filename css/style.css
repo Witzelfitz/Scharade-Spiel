@@ -317,6 +317,50 @@ a:hover {
 .logout-btn:hover {
   background-color: var(--color-blue);
 }
+
+/* UI helpers */
+.input-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.hint {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+}
+
+.counter {
+  font-variant-numeric: tabular-nums;
+}
+
+.status-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pill {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.btn-link.secondary {
+  background-color: #2f2f2f;
+}
+
+.btn-confirm[disabled],
+.btn-link[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 .login-btn:active,
 .logout-btn:active {
   filter: brightness(0.9);
