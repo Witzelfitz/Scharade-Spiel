@@ -46,13 +46,13 @@ try {
     if ($user && password_verify($password, $user['password'])) {
         session_regenerate_id(true);
 
-        $_SESSION['user_id']  = $user['Id_User'];
+        $_SESSION['user_id']  = $user['ID_User'];
         $_SESSION['email']    = $email;
         $_SESSION['username'] = $user['username'];
 
         echo json_encode([
             "status"   => "success",
-            "ID_User"  => $user['Id_User'],
+            "ID_User"  => $user['ID_User'],
             "username" => $user['username']
         ]);
     } else {
